@@ -1,15 +1,4 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
-}
-
-include 'config/app.php';
-
-$username = $_SESSION['username'] ?? 'User';
-$role     = $_SESSION['role'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -303,7 +292,7 @@ $role     = $_SESSION['role'] ?? '';
 
     <div class="nav-right">
         <div class="profile" id="profileBox" onclick="toggleProfile()">
-            <span style="font-weight: 600;">👤 <?= htmlspecialchars($username); ?></span>
+            <span style="font-weight: 600;">👤 user </span>
             <div class="dropdown">
                 <a href="profil.php">Profil Saya</a>
                 <a href="logout.php">Logout</a>

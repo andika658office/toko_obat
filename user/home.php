@@ -302,6 +302,11 @@
             <i class="fas fa-shopping-cart"></i> Keranjang
         </a>
     </div>
+    </div>
+        <a href="../account/login.php" class="btn-keranjang">
+            <i class="fas fa-user"></i> pindah ke login
+        </a>
+    </div>
 </nav>
 
 <section class="hero">

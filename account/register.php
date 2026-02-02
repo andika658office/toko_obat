@@ -1,18 +1,20 @@
 <?php
 // account/register.php
-include_once 'conn.php';
+include '../config/conn.php';
 session_start();
-if (isset($_SESSION['register'])) {
-    $u = $_SESSION['user_id'];
-    $p = password_hash($_SESSION['password'], PASSWORD_DEFAULT);
-    $e = $_SESSION['email'];
-    $t = $_SESSION['telp'];
-    $r = $_SESSION['role'];
+if (isset($_POST['register'])) {
+    //insert to database
+    $u = mysqli_real_escape_string($conn, $_POST['username']);
+    $p = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $e = mysqli_real_escape_string($conn, $_POST['email']);
+    $t = mysqli_real_escape_string($conn, $_POST['no_telp']);
+    $r = mysqli_real_escape_string($conn, $_POST['role']);
 
-    $sql = "INSERT INTO users (user_id, password, email, telp, role) VALUES ('$u', '$p', '$e', '$t', '$r')";
+    $sql = "INSERT INTO user (username, password, email, no_telp, role) VALUES ('$u', '$p', '$e', '$t', '$r')";
     if (mysqli_query($conn, $sql)) {
         $_SESSION['admin'] = true;
-        $_SESSION['user_id'] = $u;
+        $_SESSION['username'] = $u;
+
         header('Location: ../index.php');
         exit();
     } else {

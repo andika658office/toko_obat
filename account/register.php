@@ -1,6 +1,6 @@
 <?php
 // account/register.php
-include_once 'connection.php';
+include_once 'conn.php';
 if (isset($_SESSION['register'])) {
     $u = $_SESSION['user_id'];
     $p = $_SESSION['password'];

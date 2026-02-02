@@ -1,14 +1,22 @@
 <?php
 // account/register.php
 include_once 'conn.php';
+session_start();
 if (isset($_SESSION['register'])) {
     $u = $_SESSION['user_id'];
-    $p = $_SESSION['password'];
-    $sql = "SELECT * FROM users WHERE user_id='$u' AND password='$p'";
-    if (mysqli_num_rows(mysqli_query($conn, $sql)) > 1) {
+    $p = password_hash($_SESSION['password'], PASSWORD_DEFAULT);
+    $e = $_SESSION['email'];
+    $t = $_SESSION['telp'];
+    $r = $_SESSION['role'];
+
+    $sql = "INSERT INTO users (user_id, password, email, telp, role) VALUES ('$u', '$p', '$e', '$t', '$r')";
+    if (mysqli_query($conn, $sql)) {
         $_SESSION['admin'] = true;
+        $_SESSION['user_id'] = $u;
         header('Location: ../index.php');
+        exit();
     } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         $_error = true;
     }
 }

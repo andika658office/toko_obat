@@ -4,6 +4,7 @@ $data = mysqli_query($db, "
     SELECT transaksi.*, obat.nama_obat 
     FROM transaksi 
     JOIN obat ON transaksi.id_obat = obat.id_obat
+    ORDER BY transaksi.id_transaksi DESC
 ");
 
 session_start();
@@ -13,21 +14,254 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-
 $username = $_SESSION['username'] ?? 'User';
 $role     = $_SESSION['role'] ?? '';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Transaksi</title>
+    <title>Dashboard Transaksi | Toko Obat Sehat</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --primary-gradient: linear-gradient(135deg, #00b09b, #96c93d);
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --dark: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #e0f2f1, #f1f5f9);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* ===== NAVBAR GLASSMORPHISM ===== */
+        nav {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: 0.3s;
+        }
+
+        .menu a:hover::after { width: 100%; }
+
+        /* ===== PROFILE BOX ===== */
+        .profile { position: relative; }
+        .profile-name {
+            background: var(--dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-name:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background: white;
+            width: 200px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: none;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .profile.active .dropdown {
+            display: block;
+            animation: growIn 0.3s ease-out;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .dropdown a:hover { background: #f8fafc; color: #2ecc71; padding-left: 25px; }
+
+        /* ===== MAIN CONTENT ===== */
+        .container {
+            padding: 3rem 5%;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            animation: fadeInUp 1s ease;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-tambah {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
+        }
+
+        .btn-tambah:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.3);
+        }
+
+        /* ===== CUSTOM TABLE ===== */
+        .table-responsive {
+            margin-top: 1rem;
+        }
+
+        table.dataTable { border: none !important; }
+        thead th {
+            background: #f1f5f9 !important;
+            border-bottom: none !important;
+            padding: 15px !important;
+            border-radius: 10px;
+            color: #64748b;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        tbody td {
+            padding: 20px 15px !important;
+            vertical-align: middle !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+        }
+
+        .total-badge {
+            background: #e8f5e9;
+            color: #27ae60;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes growIn {
+            from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <nav>
-    <div class="logo">Toko Obat Sehat</div>
+
+<nav>
+    <div class="logo">
+        <i class="fas fa-leaf"></i> Toko Obat Sehat
+    </div>
 
     <div class="nav-right">
         <ul class="menu">
@@ -35,280 +269,107 @@ $role     = $_SESSION['role'] ?? '';
                 <li><a href="home.php">Home</a></li>
                 <li><a href="data_obat.php">Data Obat</a></li>
             <?php endif; ?>
-            <li><a href="data_transaksi.php">Transaksi</a></li>
+            <li><a href="data_transaksi.php" style="font-weight: 700; color: #2ecc71;">Transaksi</a></li>
             <li><a href="laporan.php">Laporan</a></li>
         </ul>
 
-        <div class="profile" id="profileBox">
-            <div class="profile-name" onclick="toggleProfile()">
-                👤 <?= htmlspecialchars($username); ?>
-                <span class="arrow">▶</span>
+        <div class="profile" id="profileBox" onclick="toggleProfile()">
+            <div class="profile-name">
+                <i class="fas fa-user-astronaut"></i>
+                <span><?= htmlspecialchars($username); ?></span>
+                <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
             </div>
-
             <div class="dropdown">
-                <a href="profil.php">Profil Saya</a>
-                         <a href="logout.php">Logout</a>
-           
+                <a href="profil.php"><i class="fas fa-id-card"></i> Profil Saya</a>
+                <a href="logout.php" style="color: #ff4757;"><i class="fas fa-power-off"></i> Logout</a>
             </div>
         </div>
     </div>
 </nav>
 
-<div class="top-action">
-    <a href="transaksi_obat.php" class="btn-tambah">+ Tambah Transaksi</a>
+<div class="container">
+    <div class="card">
+        <div class="header-flex">
+            <div>
+                <h2 style="font-size: 1.8rem; font-weight: 700;">Data Transaksi</h2>
+                <p style="color: #64748b;">Kelola riwayat penjualan obat Anda</p>
+            </div>
+            <a href="transaksi_obat.php" class="btn-tambah">
+                <i class="fas fa-cart-plus"></i> Tambah Transaksi
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table id="transaksiTable" class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Obat</th>
+                        <th>Jumlah</th>
+                        <th>Total Bayar</th>
+                        <th>Tanggal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1; while ($row = mysqli_fetch_assoc($data)) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td>
+                            <div style="font-weight: 600; color: var(--dark);"><?= $row['nama_obat']; ?></div>
+                        </td>
+                        <td>
+                            <span style="color: #64748b;"><?= $row['jumlah']; ?> Qty</span>
+                        </td>
+                        <td>
+                            <span class="total-badge">Rp <?= number_format($row['total'], 0, ',', '.'); ?></span>
+                        </td>
+                        <td>
+                            <div style="font-size: 0.85rem;">
+                                <i class="far fa-clock"></i> <?= date('d/m/Y', strtotime($row['tanggal'])); ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<table border="1" cellpadding="10">
-    <tr>
-        <th>No</th>
-        <th>Nama Obat</th>
-        <th>Jumlah</th>
-        <th>Total</th>
-        <th>Tanggal</th>
-    </tr>
-
-    <?php $no=1; while ($row = mysqli_fetch_assoc($data)) { ?>
-    <tr>
-        <td><?= $no++; ?></td>
-        <td><?= $row['nama_obat']; ?></td>
-        <td><?= $row['jumlah']; ?></td>
-        <td>Rp <?= number_format($row['total']); ?></td>
-        <td><?= $row['tanggal']; ?></td>
-    </tr>
-    <?php } ?>
-</table>
-
 <footer>
-    © 2026 Toko Obat Sehat | Aplikasi Sederhana
-</footer> 
+    &copy; 2026 <strong>Toko Obat Sehat</strong> • Dirancang dengan <i class="fas fa-heart" style="color: #ff4757;"></i> untuk Kesehatan
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Inisialisasi DataTable dengan animasi
+        $('#transaksiTable').DataTable({
+            "pageLength": 10,
+            "language": {
+                "search": "Cari data:",
+                "paginate": {
+                    "next": "<i class='fas fa-chevron-right'></i>",
+                    "previous": "<i class='fas fa-chevron-left'></i>"
+                }
+            }
+        });
+    });
+
+    function toggleProfile() {
+        document.getElementById('profileBox').classList.toggle('active');
+    }
+
+    // Close dropdown on outside click
+    window.onclick = function(e) {
+        if (!e.target.closest('.profile')) {
+            document.getElementById('profileBox').classList.remove('active');
+        }
+    }
+</script>
 
 </body>
 </html>
-
-<style>
-/* ===== GLOBAL ===== */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #e8f5e9, #f4f8f6);
-}
-
-/* ===== NAVBAR ===== */
-nav {
-    background: #2ecc71;
-    padding: 15px 30px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-     animation: slideDown 0.6s ease-out forwards;
-}
-
-.logo {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.menu {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.menu li {
-    margin-left: 20px;
-}
-
-.menu li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.menu li a:hover {
-    text-decoration: underline;
-}
-
-/* ===== PROFILE ===== */
-.profile {
-    position: relative;
-}
-
-.profile-name {
-    background: linear-gradient(135deg, #3498db, #2F6FE4);
-    color: #fff;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: 0.3s;
-}
-
-.profile-name:hover {
-    transform: translateY(-2px);
-}
-
-.arrow {
-    font-size: 12px;
-    transition: transform 0.3s;
-}
-
-.dropdown {
-    position: absolute;
-    right: 0;
-    top: 48px;
-    background: #fff;
-    min-width: 180px;
-    border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    display: none;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.dropdown a {
-    display: block;
-    padding: 12px 15px;
-    color: #333;
-    text-decoration: none;
-}
-
-.dropdown a:hover {
-    background: #f1f5f9;
-}
-
-.profile.active .dropdown {
-    display: block;
-}
-
-.profile.active .arrow {
-    transform: rotate(90deg);
-}
-
-.judul-halaman {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin: 30px 0 20px;
-    position: relative;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 80px;
-    background: #ffffff;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-th {
-    background: #BFC6C4;
-    color: black;
-    padding: 12px;
-    text-align: center;
-    font-size: 14px;
-}
-
-td {
-    padding: 10px;
-    border-bottom: 1px solid #eaeaea;
-    text-align: center;
-    font-size: 13px;
-}
-
-tr:nth-child(even) {
-    background: #f9f9f9;
-}
-
-tr:hover {
-    background: #e8f5e9;
-    transition: 0.2s;
-}
-
-/* Total Harga */
-td:nth-child(4) {
-    font-weight: bold;
-    color: #27ae60;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    table {
-        font-size: 12px;
-    }
-}
-
-
-/* ===== BUTTON TAMBAH OBAT ===== */
-.top-action {
-    padding: 0 30px;
-    margin-bottom: 20px;
-    margin-top: 50px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.btn-tambah {
-    display: inline-block;
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: white;
-    padding: 12px 22px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 8px 20px rgba(46,204,113,0.4);
-    transition: 0.3s;
-}
-
-.btn-tambah:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 28px rgba(46,204,113,0.55);
-}
-
-
-
-/* ===== ANIMASI PAGE LOAD ===== */
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideUpFooter {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== FOOTER ===== */
-footer {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    animation: slideUpFooter 0.6s ease-out forwards;
-    margin-top: 619px;
-}
-</style>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Feb 2026 pada 03.31
+-- Waktu pembuatan: 02 Feb 2026 pada 06.45
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -106,7 +106,9 @@ CREATE TABLE `transaksi` (
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `no_telp` char(13) NOT NULL,
   `role` enum('admin','user') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

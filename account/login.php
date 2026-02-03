@@ -1,5 +1,38 @@
+<?php
+include '../config/conn.php'; // koneksi pakai $db
+session_start();
 
+if (isset($_POST['login'])) {
+    $u = mysqli_real_escape_string($db, $_POST['username']);
+    $p = $_POST['password'];
 
+    // Cari user berdasarkan username
+    $sql = "SELECT * FROM user WHERE username='$u' LIMIT 1";
+    $result = mysqli_query($db, $sql);
+
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+
+        // Verifikasi password
+        if (password_verify($p, $row['password'])) {
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = $row['role'];
+
+            // Arahkan sesuai role
+            if ($row['role'] === 'admin') {
+                header('Location: ../admin/homeback.php');
+            } else {
+                header('Location: ../user/home.php');
+            }
+            exit();
+        } else {
+            echo "Password salah!";
+        }
+    } else {
+        echo "Username tidak ditemukan!";
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -274,12 +307,12 @@
             <h1>Selamat Datang! 👋</h1>
             <p class="subtitle">Masuk ke akun Anda untuk mulai memesan obat.</p>
 
-            <form action="">
+            <form action="" method="POST">
                 <div class="form-group">
                     <label>Username</label>
                     <div class="input-box">
                         <i class="far fa-user"></i>
-                        <input type="text" placeholder="Username Anda" required>
+                        <input name="username" type="text" placeholder="Username Anda" required>
                     </div>
                 </div>
 
@@ -290,11 +323,11 @@
                     </div>
                     <div class="input-box">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="••••••••" required>
+                        <input name="password" type="password" placeholder="••••••••" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-login">Masuk Ke Akun</button>
+                <button type="submit" class="btn-login" name="login">Masuk Ke Akun</button>
             </form>
 
             <div class="register-text">

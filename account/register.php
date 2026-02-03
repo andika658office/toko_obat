@@ -2,24 +2,42 @@
 // account/register.php
 include '../config/conn.php';
 session_start();
-if (isset($_POST['register'])) {
-    //insert to database
-    $u = mysqli_real_escape_string($conn, $_POST['username']);
-    $p = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $e = mysqli_real_escape_string($conn, $_POST['email']);
-    $t = mysqli_real_escape_string($conn, $_POST['no_telp']);
-    $r = mysqli_real_escape_string($conn, $_POST['role']);
 
-    $sql = "INSERT INTO user (username, password, email, no_telp, role) VALUES ('$u', '$p', '$e', '$t', '$r')";
-    if (mysqli_query($conn, $sql)) {
-        $_SESSION['admin'] = true;
+if (isset($_POST['register'])) {
+    // Ambil data dari form
+    $u  = mysqli_real_escape_string($db, $_POST['username']);
+    $p  = $_POST['password'];
+    $cp = $_POST['confirm_password'];
+    $e  = mysqli_real_escape_string($db, $_POST['email']);
+    $t  = mysqli_real_escape_string($db, $_POST['no_telp']);
+    // Validasi konfirmasi password
+    if ($p !== $cp) {
+        echo "Password dan konfirmasi tidak sama!";
+        exit();
+    }
+
+    // Cek apakah email sudah terdaftar
+    $check = mysqli_query($db, "SELECT * FROM user WHERE email='$e'");
+    if (mysqli_num_rows($check) > 0) {
+        echo "Email sudah digunakan, silakan pakai email lain.";
+        exit();
+    }
+
+    // Hash password
+    $hashed = password_hash($p, PASSWORD_DEFAULT);
+
+    // Insert ke database dengan role default 'user'
+    $sql = "INSERT INTO user (username, password, email, no_telp, role) 
+            VALUES ('$u', '$hashed', '$e', '$t', 'user')";
+    if (mysqli_query($db, $sql)) {
+        // Set session untuk user
+        $_SESSION['user'] = true;
         $_SESSION['username'] = $u;
 
         header('Location: ../index.php');
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        $_error = true;
+        echo "Error: " . mysqli_error($db);
     }
 }
 ?>
@@ -62,25 +80,25 @@ if (isset($_POST['register'])) {
                 <h2 class="text-3xl font-bold text-slate-800 mb-2">Buat Akun Baru</h2>
                 <p class="text-slate-500 mb-8">Silakan lengkapi data Anda untuk bergabung.</p>
 
-                <form class="space-y-5">
+                <form class="space-y-5" method="POST" action="">
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Nama Lengkap</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                                 <i class="far fa-user"></i>
                             </span>
-                            <input type="text" placeholder="Masukkan nama lengkap"
+                            <input name="username" type="text" placeholder="Masukkan nama lengkap"
                                 class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Email</label>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider" >Email</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                                 <i class="far fa-envelope"></i>
                             </span>
-                            <input type="email" placeholder="nama@email.com"
+                            <input name="email" type="email" placeholder="nama@email.com"
                                 class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
                         </div>
                     </div>
@@ -91,7 +109,7 @@ if (isset($_POST['register'])) {
                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                                 <i class="fas fa-phone-alt"></i>
                             </span>
-                            <input type="tel" placeholder="08xxxxxxxxxx"
+                            <input name="no_telp" type="tel" placeholder="08xxxxxxxxxx"
                                 class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
                         </div>
                     </div>
@@ -99,17 +117,17 @@ if (isset($_POST['register'])) {
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Password</label>
-                            <input type="password" placeholder="••••••••"
+                            <input name="password" type="password" placeholder="••••••••"
                                 class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Konfirmasi</label>
-                            <input type="password" placeholder="••••••••"
+                            <input name="confirm_password" type="password" placeholder="••••••••"
                                 class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
                         </div>
                     </div>
 
-                    <button class="w-full bg-emerald-500 text-white py-4 rounded-xl font-bold hover:bg-emerald-600 transition shadow-lg shadow-emerald-200 mt-4 active:scale-[0.98]">
+                    <button class="w-full bg-emerald-500 text-white py-4 rounded-xl font-bold hover:bg-emerald-600 transition shadow-lg shadow-emerald-200 mt-4 active:scale-[0.98]" type="submit" name="register">
                         Daftar Sekarang
                     </button>
                 </form>

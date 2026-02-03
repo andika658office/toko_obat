@@ -43,7 +43,88 @@ if (isset($_POST['login'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
+   
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <div class="left-content">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fas fa-prescription-bottle-medical"></i>
+                </div>
+                <div>
+                    <h3>ObatKu</h3>
+                    <span>Partner Kesehatan Terpercaya</span>
+                </div>
+            </div>
+
+            <h1>Selamat Datang! 👋</h1>
+            <p class="subtitle">Masuk ke akun Anda untuk mulai memesan obat.</p>
+
+            <form action="" method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-box">
+                        <i class="far fa-user"></i>
+                        <input name="username" type="text" placeholder="Username Anda" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="pass-header">
+                        <label>Password</label>
+                        <a href="#" class="forgot-link">Lupa Password?</a>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-lock"></i>
+                        <input name="password" type="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login" name="login">Masuk Ke Akun</button>
+            </form>
+
+            <div class="register-text">
+                Belum punya akun? <a href="register.php">Daftar Gratis Sekarang</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="right">
+        <i class="fas fa-heart f-icon ic-1"></i>
+        <i class="fas fa-shield-halved f-icon ic-2"></i>
+
+        <div class="center-logo">
+            <i class="fas fa-pills"></i>
+        </div>
+
+        <h2>Kesehatan Anda,<br>Prioritas Utama Kami</h2>
+        <p>
+            Dapatkan akses ke ribuan jenis obat berkualitas dengan harga terbaik. 
+            Layanan pengantaran cepat 24/7 langsung ke pintu Anda.
+        </p>
+
+        <div class="stats">
+            <div class="stat-item">
+                <h3>1500+</h3>
+                <span>Produk Obat</span>
+            </div>
+            <div class="stat-item">
+                <h3>60K+</h3>
+                <span>Pelanggan</span>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <span>Layanan</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+ <style>
         * {
             margin: 0;
             padding: 0;
@@ -288,84 +369,4 @@ if (isset($_POST['login'])) {
             .right { order: -1; } /* Info kesehatan muncul di atas pada HP */
         }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="left">
-        <div class="left-content">
-            <div class="brand">
-                <div class="logo">
-                    <i class="fas fa-prescription-bottle-medical"></i>
-                </div>
-                <div>
-                    <h3>ObatKu</h3>
-                    <span>Partner Kesehatan Terpercaya</span>
-                </div>
-            </div>
-
-            <h1>Selamat Datang! 👋</h1>
-            <p class="subtitle">Masuk ke akun Anda untuk mulai memesan obat.</p>
-
-            <form action="" method="POST">
-                <div class="form-group">
-                    <label>Username</label>
-                    <div class="input-box">
-                        <i class="far fa-user"></i>
-                        <input name="username" type="text" placeholder="Username Anda" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="pass-header">
-                        <label>Password</label>
-                        <a href="#" class="forgot-link">Lupa Password?</a>
-                    </div>
-                    <div class="input-box">
-                        <i class="fas fa-lock"></i>
-                        <input name="password" type="password" placeholder="••••••••" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-login" name="login">Masuk Ke Akun</button>
-            </form>
-
-            <div class="register-text">
-                Belum punya akun? <a href="register.php">Daftar Gratis Sekarang</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="right">
-        <i class="fas fa-heart f-icon ic-1"></i>
-        <i class="fas fa-shield-halved f-icon ic-2"></i>
-
-        <div class="center-logo">
-            <i class="fas fa-pills"></i>
-        </div>
-
-        <h2>Kesehatan Anda,<br>Prioritas Utama Kami</h2>
-        <p>
-            Dapatkan akses ke ribuan jenis obat berkualitas dengan harga terbaik. 
-            Layanan pengantaran cepat 24/7 langsung ke pintu Anda.
-        </p>
-
-        <div class="stats">
-            <div class="stat-item">
-                <h3>1500+</h3>
-                <span>Produk Obat</span>
-            </div>
-            <div class="stat-item">
-                <h3>60K+</h3>
-                <span>Pelanggan</span>
-            </div>
-            <div class="stat-item">
-                <h3>24/7</h3>
-                <span>Layanan</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
 </html>

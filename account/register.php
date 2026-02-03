@@ -18,93 +18,157 @@ if (isset($_POST['register'])) {
         header('Location: ../index.php');
         exit();
     } else {
-        echo "Error: "
-        
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        $_error = true;
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - ApotekSehat</title>
+    <title>Daftar - ApotekSehat Full Screen</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Memastikan container membagi layar 50:50 secara penuh */
+        .split-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
-<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white rounded-[2rem] shadow-2xl flex overflow-hidden max-w-5xl w-full">
+<body class="bg-white">
 
-        <div class="w-full md:w-3/5 p-12">
-            <h2 class="text-3xl font-bold text-slate-800 mb-1">Buat Akun Baru</h2>
-            <p class="text-slate-500 mb-8 text-sm">Isi data di bawah untuk mendaftar</p>
+    <div class="split-container">
+        
+        <div class="w-full md:w-1/2 flex items-center justify-center p-8 md:p-16 bg-white">
+            <div class="max-w-md w-full">
+                <div class="flex items-center gap-2 mb-8 md:hidden">
+                    <div class="bg-emerald-500 p-2 rounded-lg text-white">💊</div>
+                    <h1 class="font-bold text-slate-800">ApotekSehat</h1>
+                </div>
 
-            <form class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nama Lengkap</label>
-                    <input type="text" placeholder="Masukkan nama lengkap"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Email</label>
-                    <input type="email" placeholder="nama@email.com"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nomor Telepon</label>
-                    <input type="tel" placeholder="08xxxxxxxxxx"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Buat Akun Baru</h2>
+                <p class="text-slate-500 mb-8">Silakan lengkapi data Anda untuk bergabung.</p>
+
+                <form class="space-y-5">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Password</label>
-                        <input type="password" placeholder="Min. 6 karakter"
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Nama Lengkap</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <i class="far fa-user"></i>
+                            </span>
+                            <input type="text" placeholder="Masukkan nama lengkap"
+                                class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
+                        </div>
                     </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Konfirmasi</label>
-                        <input type="password" placeholder="Ulangi password"
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Email</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <i class="far fa-envelope"></i>
+                            </span>
+                            <input type="email" placeholder="nama@email.com"
+                                class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
+                        </div>
                     </div>
-                </div>
-                <button
-                    class="w-full bg-emerald-500 text-white py-4 rounded-xl font-bold hover:bg-emerald-600 transition shadow-lg shadow-emerald-200 mt-4">Daftar
-                    Sekarang</button>
-            </form>
-            <p class="text-center text-slate-600 mt-6 text-sm">Sudah punya akun? <a href="#"
-                    class="text-emerald-500 font-bold hover:underline">Masuk</a></p>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Nomor Telepon</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <i class="fas fa-phone-alt"></i>
+                            </span>
+                            <input type="tel" placeholder="08xxxxxxxxxx"
+                                class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Password</label>
+                            <input type="password" placeholder="••••••••"
+                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Konfirmasi</label>
+                            <input type="password" placeholder="••••••••"
+                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-emerald-500 text-white py-4 rounded-xl font-bold hover:bg-emerald-600 transition shadow-lg shadow-emerald-200 mt-4 active:scale-[0.98]">
+                        Daftar Sekarang
+                    </button>
+                </form>
+
+                <p class="text-center text-slate-600 mt-8 text-sm">
+                    Sudah punya akun? 
+                    <a href="login.php" class="text-emerald-500 font-bold hover:underline">Masuk di sini</a>
+                </p>
+            </div>
         </div>
 
-        <div
-            class="hidden md:flex w-2/5 bg-gradient-to-bl from-emerald-400 to-emerald-600 p-12 flex-col justify-center text-white">
-            <div class="mb-12">
-                <div class="flex items-center gap-2 mb-12">
-                    <div class="bg-white/20 p-2 rounded-lg text-white">💊</div>
-                    <h1 class="font-bold text-white">ApotekSehat</h1>
+        <div class="hidden md:flex md:w-1/2 bg-gradient-to-bl from-emerald-400 to-emerald-600 p-20 flex-col justify-center text-white relative">
+            <div class="absolute top-10 right-10 opacity-20 text-6xl rotate-12"><i class="fas fa-pills"></i></div>
+            <div class="absolute bottom-20 left-10 opacity-20 text-6xl -rotate-12"><i class="fas fa-heartbeat"></i></div>
+
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-16">
+                    <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md border border-white/30 text-2xl">💊</div>
+                    <h1 class="text-2xl font-bold tracking-tight">ObatKu</h1>
                 </div>
-                <h2 class="text-4xl font-bold leading-tight mb-6">Bergabunglah dengan Keluarga ApotekSehat</h2>
-                <p class="text-emerald-50 mb-8">Daftar sekarang dan nikmati berbagai keuntungan eksklusif untuk menjaga
-                    kesehatan Anda.</p>
-                <ul class="space-y-4 text-sm font-medium">
-                    <li class="flex items-center gap-3">
-                        <span class="bg-white/20 rounded-full p-1 text-[10px]">✔</span> Akses ke ribuan produk obat
+
+                <h2 class="text-5xl font-bold leading-[1.2] mb-8">Mulailah Hidup Sehat Bersama Kami</h2>
+                <p class="text-emerald-50 text-lg mb-12 max-w-md opacity-90">
+                    Dapatkan kemudahan akses kesehatan, konsultasi apoteker, dan promo menarik setiap harinya.
+                </p>
+
+                <ul class="space-y-6">
+                    <li class="flex items-start gap-4">
+                        <span class="bg-white text-emerald-600 rounded-full h-7 w-7 flex items-center justify-center text-xs shrink-0 shadow-lg">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <div>
+                            <p class="font-bold text-lg">Akses Produk Lengkap</p>
+                            <p class="text-emerald-100 text-sm">Ribuan obat dan vitamin tersedia untuk Anda.</p>
+                        </div>
                     </li>
-                    <li class="flex items-center gap-3">
-                        <span class="bg-white/20 rounded-full p-1 text-[10px]">✔</span> Promo & diskon eksklusif member
+                    <li class="flex items-start gap-4">
+                        <span class="bg-white text-emerald-600 rounded-full h-7 w-7 flex items-center justify-center text-xs shrink-0 shadow-lg">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <div>
+                            <p class="font-bold text-lg">Diskon Member Eksklusif</p>
+                            <p class="text-emerald-100 text-sm">Hemat lebih banyak dengan poin dan promo member.</p>
+                        </div>
                     </li>
-                    <li class="flex items-center gap-3">
-                        <span class="bg-white/20 rounded-full p-1 text-[10px]">✔</span> Konsultasi gratis dengan
-                        apoteker
+                    <li class="flex items-start gap-4">
+                        <span class="bg-white text-emerald-600 rounded-full h-7 w-7 flex items-center justify-center text-xs shrink-0 shadow-lg">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <div>
+                            <p class="font-bold text-lg">Konsultasi Gratis</p>
+                            <p class="text-emerald-100 text-sm">Tanya apoteker kami langsung dari aplikasi.</p>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
 
     </div>
-</body>
 
+</body>
 </html>

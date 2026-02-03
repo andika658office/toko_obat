@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login ApotekSehat</title>
+    <title>Login ApotekSehat - Full Screen Split</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -18,33 +18,32 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        body {
-            background: #f3f4f6; /* Warna abu-abu terang sesuai gambar */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .wrapper {
+        body, html {
+            height: 100%;
             width: 100%;
-            max-width: 1100px;
-            height: 650px;
-            background: #fff;
-            border-radius: 24px; /* Border radius lebih lembut */
-            overflow: hidden;
-            display: flex;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.08); /* Shadow lebih halus */
+            overflow: hidden; /* Mencegah scroll pada desktop */
         }
 
-        /* ===== LEFT SIDE ===== */
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ===== LEFT SIDE (FORM) ===== */
         .left {
             width: 50%;
-            padding: 60px 80px;
+            background: #ffffff;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 0 10%; /* Memberi ruang agar form tidak terlalu lebar */
+        }
+
+        .left-content {
+            width: 100%;
+            max-width: 450px; /* Membatasi lebar form agar tetap estetik */
         }
 
         .brand {
@@ -55,42 +54,43 @@
         }
 
         .logo {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             background: #10b981;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 20px;
+            font-size: 22px;
         }
 
         .brand h3 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #111827;
         }
 
         .brand span {
-            font-size: 13px;
+            font-size: 14px;
             color: #6b7280;
             display: block;
         }
 
         .left h1 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             color: #111827;
             margin-bottom: 10px;
         }
 
-        .left p {
+        .left p.subtitle {
             color: #6b7280;
             margin-bottom: 40px;
-            font-size: 15px;
+            font-size: 16px;
         }
 
+        /* Form Styling */
         .form-group {
             margin-bottom: 25px;
         }
@@ -109,12 +109,12 @@
 
         .input-box input {
             width: 100%;
-            padding: 15px 15px 15px 50px;
-            border-radius: 14px;
+            padding: 16px 16px 16px 52px;
+            border-radius: 12px;
             border: 1.5px solid #e5e7eb;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            font-size: 15px;
             background: #f9fafb;
+            transition: 0.3s;
         }
 
         .input-box i {
@@ -123,7 +123,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: #9ca3af;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         .input-box input:focus {
@@ -144,15 +144,15 @@
             font-size: 13px;
             color: #10b981;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .btn-login {
             width: 100%;
             padding: 16px;
             border: none;
-            border-radius: 14px;
-            background: #10b981; /* Solid green sesuai tombol di gambar */
+            border-radius: 12px;
+            background: #10b981;
             color: #fff;
             font-size: 16px;
             font-weight: 600;
@@ -179,161 +179,151 @@
             text-decoration: none;
         }
 
-        /* ===== RIGHT SIDE ===== */
+        /* ===== RIGHT SIDE (GREEN) ===== */
         .right {
             width: 50%;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #fff;
-            padding: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 60px;
             position: relative;
         }
 
-        /* Ikon-ikon kecil melayang seperti di gambar */
-        .right-icon {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 20px;
-        }
-        .icon-top-left { top: 10%; left: 15%; border-radius: 50%; padding: 10px; }
-        .icon-top-right { top: 20%; right: 10%; }
-        .icon-bottom-right { bottom: 15%; right: 15%; border-radius: 50%; padding: 10px; }
-
         .center-logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border-radius: 25px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            margin-bottom: 30px;
+            font-size: 50px;
+            margin-bottom: 40px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .right h2 {
-            font-size: 32px;
+            font-size: 42px;
             font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 20px;
+            line-height: 1.2;
+            margin-bottom: 25px;
         }
 
         .right p {
-            font-size: 15px;
+            font-size: 18px;
             opacity: 0.9;
-            line-height: 1.7;
-            max-width: 400px;
-            margin-bottom: 50px;
+            max-width: 450px;
+            line-height: 1.8;
+            margin-bottom: 60px;
         }
 
-        .stats-container {
+        .stats {
             display: flex;
-            gap: 40px;
+            gap: 50px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 30px;
+            padding-top: 40px;
         }
 
-        .stat-item h3 {
+        .stat-item h3 { font-size: 28px; font-weight: 700; }
+        .stat-item span { font-size: 14px; opacity: 0.8; }
+
+        /* Floating Icons */
+        .f-icon {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 50%;
             font-size: 24px;
-            font-weight: 700;
         }
-
-        .stat-item span {
-            font-size: 13px;
-            opacity: 0.8;
-        }
+        .ic-1 { top: 10%; right: 15%; }
+        .ic-2 { bottom: 10%; left: 15%; }
 
         /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .wrapper {
-                flex-direction: column;
-                height: auto;
-                max-width: 500px;
-            }
-            .left, .right {
-                width: 100%;
-                padding: 40px;
-            }
-            .right { display: none; } /* Sembunyikan sisi kanan di mobile sesuai standar UI */
+        @media (max-width: 1024px) {
+            .left h1 { font-size: 28px; }
+            .right h2 { font-size: 32px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; overflow-y: auto; }
+            .left, .right { width: 100%; height: auto; padding: 60px 20px; }
+            .right { order: -1; } /* Info kesehatan muncul di atas pada HP */
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+<div class="container">
     <div class="left">
-        <div class="brand">
-            <div class="logo">
-                <i class="fas fa-link"></i>
+        <div class="left-content">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fas fa-prescription-bottle-medical"></i>
+                </div>
+                <div>
+                    <h3>ObatKu</h3>
+                    <span>Partner Kesehatan Terpercaya</span>
+                </div>
             </div>
-            <div>
-                <h3>ApotekSehat</h3>
-                <span>Toko Obat Terpercaya</span>
+
+            <h1>Selamat Datang! 👋</h1>
+            <p class="subtitle">Masuk ke akun Anda untuk mulai memesan obat.</p>
+
+            <form action="">
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-box">
+                        <i class="far fa-user"></i>
+                        <input type="text" placeholder="Username Anda" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="pass-header">
+                        <label>Password</label>
+                        <a href="#" class="forgot-link">Lupa Password?</a>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login">Masuk Ke Akun</button>
+            </form>
+
+            <div class="register-text">
+                Belum punya akun? <a href="register.php">Daftar Gratis Sekarang</a>
             </div>
-        </div>
-
-        <h1>Selamat Datang! 👋</h1>
-        <p>Masuk ke akun Anda untuk melanjutkan</p>
-
-        <form action="" method="POST">
-    <div class="form-group">
-        <label>Username</label>
-        <div class="input-box">
-            <i class="far fa-user"></i>
-            <input type="text" name="username" placeholder="Masukkan username" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="pass-header">
-            <label>Password</label>
-            <a href="#" class="forgot-link">Lupa password?</a>
-        </div>
-        <div class="input-box">
-            <i class="fas fa-lock"></i>
-            <input type="password" name="password" placeholder="Masukkan password" required>
-        </div>
-    </div>
-
-    <button type="submit" name="login" class="btn-login">Masuk</button>
-</form>
-
-        <div class="register-text">
-            Belum punya akun? <a href="register.php">Daftar Sekarang</a>
         </div>
     </div>
 
     <div class="right">
-        <div class="right-icon icon-top-left"><i class="far fa-heart"></i></div>
-        <div class="right-icon icon-top-right"><i class="fas fa-link"></i></div>
-        <div class="right-icon icon-bottom-right"><i class="fas fa-shield-alt"></i></div>
+        <i class="fas fa-heart f-icon ic-1"></i>
+        <i class="fas fa-shield-halved f-icon ic-2"></i>
 
         <div class="center-logo">
             <i class="fas fa-pills"></i>
         </div>
 
-        <h2>Kesehatan Anda,<br>Prioritas Kami</h2>
+        <h2>Kesehatan Anda,<br>Prioritas Utama Kami</h2>
         <p>
-            Temukan berbagai obat berkualitas dengan harga terjangkau. 
-            Layanan 24 jam untuk kesehatan keluarga Anda.
+            Dapatkan akses ke ribuan jenis obat berkualitas dengan harga terbaik. 
+            Layanan pengantaran cepat 24/7 langsung ke pintu Anda.
         </p>
 
-        <div class="stats-container">
+        <div class="stats">
             <div class="stat-item">
-                <h3>1000+</h3>
+                <h3>1500+</h3>
                 <span>Produk Obat</span>
             </div>
             <div class="stat-item">
-                <h3>50K+</h3>
+                <h3>60K+</h3>
                 <span>Pelanggan</span>
             </div>
             <div class="stat-item">

@@ -18,8 +18,8 @@ if (isset($_POST['register'])) {
         header('Location: ../index.php');
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        $_error = true;
+        echo "Error: "
+        
     }
 }
 ?>

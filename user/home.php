@@ -263,6 +263,129 @@
             50% { transform: translateY(-15px); }
         }
 
+       .section-tag {
+            background: var(--soft-green);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .catalog-section h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .catalog-section h2 span { color: var(--primary); }
+        .catalog-section p.sub-desc { color: var(--text-light); max-width: 600px; margin: 0 auto 40px; }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            color: var(--text-light);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            text-align: left;
+            position: relative;
+            transition: 0.3s;
+            border: 1px solid #f1f5f9;
+        }
+
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+
+        .badge-status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            z-index: 2;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+
+        .product-img-box {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 4rem;
+        }
+
+        .category-label { color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-bottom: 5px; display: block; }
+        .product-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 10px; }
+        
+        .rating { color: #f59e0b; font-size: 0.85rem; margin-bottom: 15px; }
+        .rating span { color: var(--text-light); font-weight: 400; }
+
+        .price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .price-main { color: var(--primary-dark); font-weight: 800; font-size: 1.2rem; }
+        .price-strike { text-decoration: line-through; color: #cbd5e1; font-size: 0.9rem; }
+
+        .btn-add-cart {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-add-cart:hover { background: var(--primary-dark); }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -346,6 +469,84 @@
                     <div style="font-size: 0.7rem; color: #64748b;">Produk Tersedia</div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="catalog-section" id="katalog">
+    <span class="section-tag">Katalog Produk</span>
+    <h2>Produk <span>Unggulan</span> Kami</h2>
+    <p class="sub-desc">Temukan berbagai obat dan produk kesehatan berkualitas tinggi dengan harga terjangkau</p>
+
+    <div class="filter-container">
+        <button class="filter-btn active">Semua</button>
+        <button class="filter-btn">Obat Demam</button>
+        <button class="filter-btn">Vitamin & Suplemen</button>
+        <button class="filter-btn">Herbal</button>
+        <button class="filter-btn">Alat Kesehatan</button>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <span class="badge-status" style="background: #10b981;">Terlaris</span>
+            <div class="wishlist-btn"><i class="fas fa-heart"></i></div>
+            <div class="product-img-box">💊</div>
+            <span class="category-label">Obat Demam</span>
+            <h3 class="product-name">Paracetamol 500mg</h3>
+            <div class="rating">
+                <i class="fas fa-star"></i> 4.8 <span>(234 ulasan)</span>
+            </div>
+            <div class="price-row">
+                <span class="price-main">Rp 15.000</span>
+                <span class="price-strike">Rp 20.000</span>
+            </div>
+            <button class="btn-add-cart"><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card">
+            <span class="badge-status" style="background: #3b82f6;">Best Seller</span>
+            <div class="wishlist-btn"><i class="fas fa-heart"></i></div>
+            <div class="product-img-box">🍊</div>
+            <span class="category-label">Vitamin & Suplemen</span>
+            <h3 class="product-name">Vitamin C 1000mg</h3>
+            <div class="rating">
+                <i class="fas fa-star"></i> 4.9 <span>(189 ulasan)</span>
+            </div>
+            <div class="price-row">
+                <span class="price-main">Rp 85.000</span>
+            </div>
+            <button class="btn-add-cart"><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card">
+            <span class="badge-status" style="background: #f59e0b;">Promo</span>
+            <div class="wishlist-btn"><i class="fas fa-heart"></i></div>
+            <div class="product-img-box">🌿</div>
+            <span class="category-label">Herbal</span>
+            <h3 class="product-name">Antangin JRG</h3>
+            <div class="rating">
+                <i class="fas fa-star"></i> 4.6 <span>(312 ulasan)</span>
+            </div>
+            <div class="price-row">
+                <span class="price-main">Rp 25.000</span>
+                <span class="price-strike">Rp 30.000</span>
+            </div>
+            <button class="btn-add-cart"><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card">
+            <span class="badge-status" style="background: #6366f1;">Premium</span>
+            <div class="wishlist-btn"><i class="fas fa-heart"></i></div>
+            <div class="product-img-box">🌡️</div>
+            <span class="category-label">Alat Kesehatan</span>
+            <h3 class="product-name">Termometer Digital</h3>
+            <div class="rating">
+                <i class="fas fa-star"></i> 4.7 <span>(98 ulasan)</span>
+            </div>
+            <div class="price-row">
+                <span class="price-main">Rp 45.000</span>
+            </div>
+            <button class="btn-add-cart"><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
         </div>
     </div>
 </section>

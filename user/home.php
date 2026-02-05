@@ -20,14 +20,23 @@
     </div>
 
     <ul class="menu">
-        <li><a href="home.php">Beranda</a></li>
-        <li><a href="data_obat.php">Produk</a></li>
-        <li><a href="laporan.php">Tentang Kami</a></li>
-        <li><a href="#">Kontak</a></li>
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#data_obat">Produk</a></li>
+        <li><a href="#laporan">Tentang Kami</a></li>
+        <li><a href="#kontak">Kontak</a></li>
     </ul>
 
     <div class="flex items-center gap-4">
-        <div class="profile" id="profileBox" onclick="toggleProfile()">
+        <a href="data_transaksi.php" class="btn-keranjang">
+            <i class="fas fa-shopping-cart text-xs"></i> 
+            <span>Keranjang</span>
+        </a>
+
+        <a href="../account/login.php" class="btn-login">
+            <i class="far fa-user-circle mr-2"></i>Login 
+        </a>
+
+         <div class="profile" id="profileBox" onclick="toggleProfile()">
             <div class="profile-trigger">
                 <div class="w-7 h-7 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold">U</div>
                 <span class="text-sm font-bold text-slate-700">User</span>
@@ -39,15 +48,7 @@
                 <a href="logout.php" class="text-red-500 hover:bg-red-50"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
-
-        <a href="data_transaksi.php" class="btn-keranjang">
-            <i class="fas fa-shopping-cart text-xs"></i> 
-            <span>Keranjang</span>
-        </a>
-
-        <a href="../account/login.php" class="btn-login">
-            <i class="far fa-user-circle mr-2"></i>Login Admin
-        </a>
+        
     </div>
 </nav>
 
@@ -365,59 +366,6 @@
     </div>
 </section>
 
-
-<nav>
-    <div class="flex items-center">
-        <div class="logo-container mr-8">
-            <div class="logo-icon"><i class="fas fa-plus"></i></div>
-            <div class="logo-text">
-                <b class="text-lg leading-tight">ObatKu</b>
-                <span class="text-[10px] text-slate-400 uppercase tracking-tighter">Toko Obat Terpercaya</span>
-            </div>
-        </div>
-
-        <div class="search-container hidden lg:block">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Cari obat, pasien, atau invoice...">
-        </div>
-    </div>
-
-    <ul class="menu hidden xl:flex">
-        <li><a href="#">Beranda</a></li>
-        <li><a href="#">Produk</a></li>
-        <li><a href="#">Tentang Kami</a></li>
-        <li><a href="#">Kontak</a></li>
-    </ul>
-
-    <div class="flex items-center gap-4">
-        <button class="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-100 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 transition-all">
-            <i class="far fa-bell text-lg"></i>
-        </button>
-
-        <div class="profile relative" id="profileBox">
-            <div class="profile-trigger" onclick="toggleProfile()">
-                <div class="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center font-bold">A</div>
-                <div class="hidden sm:block text-left">
-                    <div class="text-[12px] font-extrabold text-slate-800 leading-none">Apoteker Admin</div>
-                    <div class="text-[10px] text-slate-400">Administrator</div>
-                </div>
-                <i class="fas fa-chevron-down text-[10px] text-slate-300 ml-1"></i>
-            </div>
-            <div class="dropdown">
-                <div class="p-4 border-b border-slate-50 bg-slate-50/50">
-                    <p class="text-xs text-slate-400">Masuk sebagai</p>
-                    <p class="text-sm font-bold text-slate-700">admin@sehatfarma.com</p>
-                </div>
-                <a href="#" class="flex items-center gap-3 p-3 hover:bg-emerald-50 text-slate-600 hover:text-emerald-600 transition-all">
-                    <i class="far fa-user-circle"></i> Profil
-                </a>
-                <a href="#" class="flex items-center gap-3 p-3 hover:bg-red-50 text-red-500 transition-all">
-                    <i class="fas fa-sign-out-alt"></i> Keluar
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
 
 <footer class="bg-[#0b1c16] text-slate-300 py-16 px-[8%]">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">

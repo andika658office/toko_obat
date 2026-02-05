@@ -73,8 +73,8 @@
         <div class="flex items-center gap-4 bg-white p-1.5 pr-4 border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
             <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-800 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">A</div>
             <div class="hidden md:block">
-                <p class="text-xs font-bold text-slate-900 leading-none mb-1">Apoteker Admin</p>
-                <p class="text-[10px] text-slate-400 font-medium">Administrator</p>
+                 <p class="text-xs font-bold text-slate-900 leading-none mb-1">Apoteker Admin</p>
+                <p class="text-[10px] text-slate-400 font-medium">Administrator</p> 
             </div>
         </div>
 

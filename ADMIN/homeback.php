@@ -1,3 +1,14 @@
+<?php
+include '../config/conn.php';
+
+//ambil data dari produk tapi maksimal 10
+// Ambil maksimal 10 produk
+$sql = "SELECT id_obat, nama_obat, harga, stok, expired_date 
+        FROM obat 
+        ORDER BY id_obat ASC 
+        LIMIT 30";
+$result = mysqli_query($db, $sql);
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -81,34 +92,21 @@
 <div class="section">
     <h2>Semua Produk</h2>
     <div class="products">
-        <div class="product">
-            <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png">
-            <h4>Paracetamol</h4>
-            <div class="price">Rp 5.000</div>
-            <button>Tambah</button>
+        
+                <?php if (mysqli_num_rows($result) > 0): ?>
+        <?php while ($row = mysqli_fetch_assoc($result)): ?>
+            <div class="product">
+                <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png" width="80">
+                <h4><?php echo htmlspecialchars($row['nama_obat']); ?></h4>
+                <div class="price">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></div>
+                <button>Tambah</button>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>Tidak ada produk ditemukan.</p>
+    <?php endif; ?>
         </div>
 
-        <div class="product">
-            <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png">
-            <h4>Vitamin C</h4>
-            <div class="price">Rp 15.000</div>
-            <button>Tambah</button>
-        </div>
-
-        <div class="product">
-            <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-            <h4>Sirup Anak</h4>
-            <div class="price">Rp 22.000</div>
-            <button>Tambah</button>
-        </div>
-
-        <div class="product">
-            <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-            <h4>Obat Flu</h4>
-            <div class="price">Rp 18.000</div>
-            <button>Tambah</button>
-        </div>
-    </div>
 </div>
 
 <!-- FOOTER -->
@@ -121,7 +119,7 @@
                 <span>+</span> ObatKu
             </div>
             <p>
-                Apotek terpercaya menyediakan obat-obatan,
+                toko obat terpercaya menyediakan obat-obatan,
                 vitamin, dan kebutuhan kesehatan keluarga Anda.
             </p>
         </div>
@@ -140,9 +138,7 @@
         <div>
             <h4>Layanan</h4>
             <ul>
-                <li>Konsultasi Apoteker</li>
                 <li>Cek Kesehatan</li>
-                <li>Pengiriman Obat</li>
                 <li>Program Loyalitas</li>
             </ul>
         </div>
@@ -309,7 +305,7 @@ body {
 /* PRODUK */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(5, minmax(200px, 1fr));
     gap: 25px;
 }
 .product {

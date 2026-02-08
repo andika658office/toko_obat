@@ -1,13 +1,84 @@
+<?php
+include '../config/conn.php';
+
+// Hitung total produk
+$sqlProduk = "SELECT COUNT(*) AS total_produk FROM obat";
+$resProduk = mysqli_query($db, $sqlProduk);
+$totalProduk = mysqli_fetch_assoc($resProduk)['total_produk'];
+
+// Hitung total pendapatan
+$sqlPendapatan = "SELECT SUM(total) AS total_pendapatan FROM detail_transaksi";
+$resPendapatan = mysqli_query($db, $sqlPendapatan);
+$totalPendapatan = mysqli_fetch_assoc($resPendapatan)['total_pendapatan'] ?? 0;
+
+// Hitung stok rendah
+$sqlStokRendah = "SELECT COUNT(*) AS stok_rendah FROM obat WHERE stok < 50";
+$resStokRendah = mysqli_query($db, $sqlStokRendah);
+$stokRendah = mysqli_fetch_assoc($resStokRendah)['stok_rendah'];
+
+// Ambil data obat
+$sqlObat = "SELECT o.id_obat, o.nama_obat, k.nama_kategori, o.harga, o.stok, o.expired_date
+            FROM obat o
+            JOIN kategori_obat k ON o.id_kategori = k.id_kategori
+            ORDER BY o.id_obat ASC
+            LIMIT 20";
+$resObat = mysqli_query($db, $sqlObat);
+
+// ====== PROSES FORM TAMBAH / UPDATE ======
+if (isset($_POST['simpan'])) {
+    $id_obat  = $_POST['id_obat'] ?? null;
+    $nama     = $_POST['nama'];
+    $kategori = $_POST['kategori'];
+    $harga    = $_POST['harga'];
+    $stok     = $_POST['stok'];
+    $expired  = $_POST['expired'];
+
+    // Cari id_kategori
+    $sqlKat = "SELECT id_kategori FROM kategori_obat WHERE nama_kategori='$kategori' LIMIT 1";
+    $resKat = mysqli_query($db, $sqlKat);
+    $rowKat = mysqli_fetch_assoc($resKat);
+    $id_kategori = $rowKat['id_kategori'] ?? 1;
+
+    if ($id_obat) {
+        // UPDATE
+        $sql = "UPDATE obat SET nama_obat='$nama', id_kategori='$id_kategori',
+                harga='$harga', stok='$stok', expired_date='$expired'
+                WHERE id_obat='$id_obat'";
+        $msg = "Data obat berhasil diupdate";
+    } else {
+        // INSERT
+        $sql = "INSERT INTO obat (nama_obat, id_kategori, harga, stok, expired_date)
+                VALUES ('$nama', '$id_kategori', '$harga', '$stok', '$expired')";
+        $msg = "Data obat berhasil ditambahkan";
+    }
+
+    if (mysqli_query($db, $sql)) {
+        echo "<script>alert('$msg'); window.location.href='laporan.php';</script>";
+    } else {
+        echo "Error: " . mysqli_error($db);
+    }
+}
+
+// ====== PROSES HAPUS ======
+if (isset($_GET['hapus'])) {
+    $id = $_GET['hapus'];
+    $sqlDel = "DELETE FROM obat WHERE id_obat='$id'";
+    if (mysqli_query($db, $sqlDel)) {
+        echo "<script>alert('Data obat berhasil dihapus'); window.location.href='laporan.php';</script>";
+    } else {
+        echo "Error: " . mysqli_error($db);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <title>ObatKu - Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="sidebar">
@@ -22,43 +93,25 @@
 
 <div class="main">
 
-<div class="header">
-    <div>
-        <h2 style="margin:0">Dashboard</h2>
-        <small style="color:#777">Ringkasan data apotek</small>
+    <div class="header">
+        <div>
+            <a href="homeback.php"><h2 style="margin:0">Dashboard</h2></a>
+            <small style="color:#777">Ringkasan data apotek</small>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center">
+            <button><i class="fas fa-user"></i> Kasir</button>
+            <button onclick="window.location.href='pengaturan.php'"><i class="fas fa-gear"></i></button>
+        </div>
     </div>
 
-    <div style="display:flex; gap:10px; align-items:center">
-        <button>
-            <i class="fas fa-user"></i> Kasir
-        </button>
-
-        <button onclick="window.location.href='pengaturan.html'">
-            <i class="fas fa-gear"></i>
-        </button>
-    </div>
-</div>
-
-
-    <!-- ===== CARD TAMBAHAN (TANPA UBAH KODE LAIN) ===== -->
+    <!-- CARD -->
     <div class="cards">
-        <div class="card">
-            <h4>Total Produk</h4>
-            <h2>13</h2>
-        </div>
-
-        <div class="card">
-            <h4>Total Pendapatan</h4>
-            <h2>Rp 8.500</h2>
-        </div>
-
-        <div class="card">
-            <h4>Stok Rendah</h4>
-            <h2 style="color:red">2</h2>
-        </div>
+        <div class="card"><h4>Total Produk</h4><h2><?php echo $totalProduk; ?></h2></div>
+        <div class="card"><h4>Total Pendapatan</h4><h2>Rp <?php echo number_format($totalPendapatan, 0, ',', '.'); ?></h2></div>
+        <div class="card"><h4>Stok Rendah</h4><h2 style="color:red"><?php echo $stokRendah; ?></h2></div>
     </div>
-    <!-- ===== END CARD ===== -->
 
+    <!-- TABEL OBAT -->
     <div class="box">
         <div class="box-header">
             <h3>Manajemen Stok Obat</h3>
@@ -74,17 +127,25 @@
                 <th>Expired</th>
                 <th>Aksi</th>
             </tr>
-            <tr>
-                <td>Paracetamol 500mg</td>
-                <td>Obat Umum</td>
-                <td>8500</td>
-                <td>149</td>
-                <td>2027-06-15</td>
-                <td class="action">
-                    <i class="fas fa-pen" onclick="openEdit(this)"></i>
-                    <i class="fas fa-trash" style="color:red"></i>
-                </td>
-            </tr>
+            <?php if (mysqli_num_rows($resObat) > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($resObat)): ?>
+                    <tr>
+                        <td data-id="<?php echo $row['id_obat']; ?>"><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                        <td><?php echo htmlspecialchars($row['nama_kategori']); ?></td>
+                        <td><?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
+                        <td><?php echo $row['stok']; ?></td>
+                        <td><?php echo $row['expired_date']; ?></td>
+                        <td class="action">
+                            <i class="fas fa-pen" onclick="openEdit(this)"></i>
+                            <a href="laporan.php?hapus=<?php echo $row['id_obat']; ?>" onclick="return confirm('Yakin hapus obat ini?')">
+                                <i class="fas fa-trash" style="color:red"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr><td colspan="6">Tidak ada data obat.</td></tr>
+            <?php endif; ?>
         </table>
     </div>
 </div>
@@ -97,29 +158,31 @@
             <span class="close" onclick="closeModal()">&times;</span>
         </div>
 
-        <form>
+        <form method="POST">
+            <input type="hidden" name="id_obat" id="id_obat">
+
             <label>Nama Obat</label>
-            <input type="text" id="nama">
+            <input type="text" name="nama" id="nama">
 
             <label>Kategori</label>
-            <select id="kategori">
-                <option>Obat Umum</option>
+            <select name="kategori" id="kategori">
+                <option>Analgesik</option>
+                <option>Antibiotik</option>
                 <option>Vitamin</option>
-                <option>Anak & Bayi</option>
             </select>
 
             <label>Harga</label>
-            <input type="number" id="harga">
+            <input type="number" name="harga" id="harga">
 
             <label>Stok</label>
-            <input type="number" id="stok">
+            <input type="number" name="stok" id="stok">
 
             <label>Expired</label>
-            <input type="date" id="expired">
+            <input type="date" name="expired" id="expired">
 
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
-                <button type="submit" class="btn-save" id="btnSave">Simpan</button>
+                <button type="submit" class="btn-save" id="btnSave" name="simpan">Simpan</button>
             </div>
         </form>
     </div>
@@ -130,8 +193,9 @@ function openTambah(){
     document.getElementById("modalTitle").innerText = "Tambah Obat";
     document.getElementById("btnSave").innerText = "Tambah";
 
+    document.getElementById("id_obat").value = "";
     document.getElementById("nama").value = "";
-    document.getElementById("kategori").value = "Obat Umum";
+    document.getElementById("kategori").value = "Analgesik";
     document.getElementById("harga").value = "";
     document.getElementById("stok").value = "";
     document.getElementById("expired").value = "";
@@ -145,9 +209,11 @@ function openEdit(el){
     document.getElementById("modalTitle").innerText = "Edit Obat";
     document.getElementById("btnSave").innerText = "Update";
 
+    // Ambil id_obat dari atribut data-id di kolom pertama
+    document.getElementById("id_obat").value = row[0].dataset.id;
     document.getElementById("nama").value = row[0].innerText;
     document.getElementById("kategori").value = row[1].innerText;
-    document.getElementById("harga").value = row[2].innerText;
+    document.getElementById("harga").value = row[2].innerText.replace(/\./g,''); // hapus format Rp
     document.getElementById("stok").value = row[3].innerText;
     document.getElementById("expired").value = row[4].innerText;
 
@@ -158,9 +224,8 @@ function closeModal(){
     document.getElementById("modalTambah").style.display="none";
 }
 </script>
-
-</body>
 </html>
+
 
 
 <style>

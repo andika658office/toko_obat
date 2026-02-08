@@ -26,30 +26,7 @@
         <li><a href="#kontak">Kontak</a></li>
     </ul>
 
-    <div class="flex items-center gap-4">
-        <a href="data_transaksi.php" class="btn-keranjang">
-            <i class="fas fa-shopping-cart text-xs"></i> 
-            <span>Keranjang</span>
-        </a>
-
-        <a href="../account/login.php" class="btn-login">
-            <i class="far fa-user-circle mr-2"></i>Login 
-        </a>
-
-         <div class="profile" id="profileBox" onclick="toggleProfile()">
-            <div class="profile-trigger">
-                <div class="w-7 h-7 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold">U</div>
-                <span class="text-sm font-bold text-slate-700">User</span>
-                <i class="fas fa-chevron-down text-[10px] text-slate-400"></i>
-            </div>
-            <div class="dropdown">
-                <a href="profil.php"><i class="far fa-user-circle"></i> Profil Saya</a>
-                <hr class="border-slate-50">
-                <a href="logout.php" class="text-red-500 hover:bg-red-50"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-        </div>
-        
-    </div>
+ 
 </nav>
 
 <section class="hero">
@@ -125,16 +102,9 @@
     <div class="text-center mb-12">
         <span class="px-4 py-1.5 bg-emerald-100 text-emerald-600 rounded-full text-xs font-bold uppercase tracking-wider">Katalog Produk</span>
         <h2 class="text-4xl font-extrabold mt-4 text-slate-800">Produk <span class="text-emerald-500">Unggulan</span> Kami</h2>
-        <p class="text-slate-500 mt-3 max-w-2xl mx-auto">Temukan berbagai obat dan produk kesehatan berkualitas tinggi dengan harga terjangkau</p>
+        <p class="text-slate-500 mt-3 max-w-2xl mx-auto">Temukan berbagai obat dan produk kesehatan berkualitas tinggi </p>
     </div>
 
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button class="px-6 py-2.5 bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-md shadow-emerald-100 transition-all hover:scale-105">Semua</button>
-        <button class="px-6 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-bold text-sm transition-all hover:border-emerald-500 hover:text-emerald-500">Obat Demam</button>
-        <button class="px-6 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-bold text-sm transition-all hover:border-emerald-500 hover:text-emerald-500">Vitamin & Suplemen</button>
-        <button class="px-6 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-bold text-sm transition-all hover:border-emerald-500 hover:text-emerald-500">Herbal</button>
-        <button class="px-6 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-bold text-sm transition-all hover:border-emerald-500 hover:text-emerald-500">Alat Kesehatan</button>
-    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         
@@ -142,9 +112,6 @@
             <div class="absolute top-4 left-4 z-10">
                 <span class="px-3 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded-lg uppercase">Terlaris</span>
             </div>
-            <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors shadow-sm">
-                <i class="far fa-heart"></i>
-            </button>
             
             <div class="aspect-square bg-slate-50 rounded-2xl mb-5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                 <i class="fas fa-pills text-6xl text-emerald-400 opacity-80"></i>
@@ -176,125 +143,8 @@
                 <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
             </button>
         </div>
-
-        <div class="group bg-white rounded-[32px] p-5 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-500 relative">
-            <div class="absolute top-4 left-4 z-10">
-                <span class="px-3 py-1 bg-blue-500 text-white text-[10px] font-bold rounded-lg uppercase">Best Seller</span>
-            </div>
-            <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors shadow-sm">
-                <i class="far fa-heart"></i>
-            </button>
-            
-            <div class="aspect-square bg-slate-50 rounded-2xl mb-5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <i class="fas fa-apple-whole text-6xl text-orange-400 opacity-80"></i>
-            </div>
-
-            <div class="space-y-1 mb-4">
-                <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Vitamin & Suplemen</span>
-                <h3 class="font-bold text-slate-800 text-lg group-hover:text-emerald-600 transition-colors">Vitamin C 1000mg</h3>
-                <div class="flex items-center gap-2">
-                    <div class="flex text-amber-400 text-xs">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="text-[11px] text-slate-400 font-medium">(189 ulasan)</span>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-                <span class="text-xl font-extrabold text-slate-900">Rp 85.000</span>
-            </div>
-            
-            <button class="w-full mt-5 py-3.5 bg-emerald-500 text-white rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all active:scale-95">
-                <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
-            </button>
-        </div>
-
-        <div class="group bg-white rounded-[32px] p-5 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-500 relative">
-            <div class="absolute top-4 left-4 z-10">
-                <span class="px-3 py-1 bg-red-500 text-white text-[10px] font-bold rounded-lg uppercase">Promo</span>
-            </div>
-            <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors shadow-sm">
-                <i class="far fa-heart"></i>
-            </button>
-            
-            <div class="aspect-square bg-slate-50 rounded-2xl mb-5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <i class="fas fa-leaf text-6xl text-green-400 opacity-80"></i>
-            </div>
-
-            <div class="space-y-1 mb-4">
-                <span class="text-[10px] font-bold text-red-500 uppercase tracking-widest">Herbal</span>
-                <h3 class="font-bold text-slate-800 text-lg group-hover:text-emerald-600 transition-colors">Antangin JRG</h3>
-                <div class="flex items-center gap-2">
-                    <div class="flex text-amber-400 text-xs">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <span class="text-[11px] text-slate-400 font-medium">(312 ulasan)</span>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-                <div>
-                    <span class="block text-xl font-extrabold text-slate-900">Rp 25.000</span>
-                    <span class="text-xs text-slate-400 line-through">Rp 30.000</span>
-                </div>
-            </div>
-            
-            <button class="w-full mt-5 py-3.5 bg-emerald-500 text-white rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all active:scale-95">
-                <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
-            </button>
-        </div>
-
-        <div class="group bg-white rounded-[32px] p-5 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-500 relative">
-            <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors shadow-sm">
-                <i class="far fa-heart"></i>
-            </button>
-            
-            <div class="aspect-square bg-slate-50 rounded-2xl mb-5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <i class="fas fa-thermometer-half text-6xl text-blue-400 opacity-80"></i>
-            </div>
-
-            <div class="space-y-1 mb-4">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Alat Kesehatan</span>
-                <h3 class="font-bold text-slate-800 text-lg group-hover:text-emerald-600 transition-colors">Termometer Digital</h3>
-                <div class="flex items-center gap-2">
-                    <div class="flex text-amber-400 text-xs">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="text-[11px] text-slate-400 font-medium">(98 ulasan)</span>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-                <span class="text-xl font-extrabold text-slate-900">Rp 45.000</span>
-            </div>
-            
-            <button class="w-full mt-5 py-3.5 bg-emerald-500 text-white rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all active:scale-95">
-                <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
-            </button>
-        </div>
-
     </div>
-
-    <div class="mt-20 pt-10 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p class="text-slate-400 text-sm">© 2026 <span class="font-bold text-emerald-500">SehatFarma</span>. Seluruh hak cipta dilindungi.</p>
-        <div class="flex gap-6">
-            <a href="#" class="text-slate-400 hover:text-emerald-500 text-xl transition-colors"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-slate-400 hover:text-emerald-500 text-xl transition-colors"><i class="fab fa-facebook"></i></a>
-            <a href="#" class="text-slate-400 hover:text-emerald-500 text-xl transition-colors"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </div>
+</div>
 </section>
 
 <section class="py-24 px-[8%] bg-white overflow-hidden">

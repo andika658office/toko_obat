@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SehatFarma | Kasir</title>
+<title>ObatKu | Kasir</title>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,19 +19,19 @@
         <input type="text" placeholder="Cari obat, vitamin, suplemen...">
     </div>
 
-
     <div class="header-right">
-        <a href="laporan.php" class="btn-gear" title="Pengaturan">
-            <i class="fas fa-gear"></i>
+        <a href="laporan.php" class="btn-gear" title="Keranjang">
+            <i class="fas fa-shopping-cart"></i>
         </a>
 
         <a href="../account/logout.php" class="btn-logout" title="Logout">
             <i class="fas fa-right-from-bracket"></i>
         </a>
 
-        <div class="user">Halo, Admin 1</div>
+        <div class="user">Halo, Kasir 1</div>
     </div>
 </div>
+
 
 
 
@@ -180,6 +180,7 @@ body {
     border-bottom: 1px solid #e5e7eb;
     z-index: 1000;
 }
+
 
 .logo{
     font-size:20px;

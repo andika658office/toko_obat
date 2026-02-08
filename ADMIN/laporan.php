@@ -1,168 +1,359 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Penjualan - ObatKu</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>ObatKu - Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body class="bg-[#F9FBFC] text-slate-800">
 
-    <div class="flex min-h-screen">
-        <aside class="w-72 bg-white border-r border-slate-100 p-8 flex flex-col fixed h-full z-50">
-            <div class="flex items-center gap-3 mb-12">
-                <div class="bg-emerald-600 p-2.5 rounded-2xl shadow-lg shadow-emerald-200">
-                    <i class="fas fa-clinic-medical text-white text-xl"></i>
-                </div>
-                <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Obat<span class="text-emerald-600">Ku</span></h1>
-            </div>
-            <nav class="space-y-1.5 flex-grow">
-                <a href="homeback.php" class="nav-link flex items-center gap-4 p-3.5 text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 rounded-2xl font-semibold transition-all">
-                    <i class="fas fa-th-large w-5"></i> <span>Dashboard</span>
-                </a>
-                <a href="koleksi.php" class="nav-link flex items-center gap-4 p-3.5 text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 rounded-2xl font-semibold transition-all">
-                    <i class="fas fa-pills w-5"></i> <span>Koleksi Obat</span>
-                </a>
-                <a href="#" class="nav-link flex items-center gap-4 p-3.5 bg-emerald-700 text-white rounded-2xl shadow-lg shadow-emerald-700/20 font-semibold transition-all">
-                    <i class="fas fa-chart-line w-5"></i> <span>Laporan Toko</span>
-                </a>
-            </nav>
-        </aside>
+<body>
 
-        <main class="flex-1 ml-72 p-10">
-            <header class="flex justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-4xl font-black text-slate-900 tracking-tight mb-2">Laporan Toko</h2>
-                    <p class="text-slate-500 font-medium">Periode: <span class="text-emerald-600 font-bold">Februari 2026</span></p>
-                </div>
-                <div class="flex gap-3">
-                    <button class="flex items-center gap-2 bg-white border border-slate-200 px-6 py-3 rounded-2xl font-bold text-slate-600 hover:bg-slate-50 transition-all shadow-sm">
-                        <i class="fas fa-calendar-alt text-emerald-600"></i> Pilih Tanggal
-                    </button>
-                    <button class="flex items-center gap-2 bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold hover:bg-emerald-800 shadow-xl shadow-emerald-700/40 transition-all hover:-translate-y-1">
-                        <i class="fas fa-file-export"></i> Export PDF
-                    </button>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Total Penjualan</p>
-                    <div class="flex items-end justify-between">
-                        <h3 class="text-3xl font-black text-slate-900">Rp 142.8M</h3>
-                        <span class="text-emerald-500 font-bold text-xs bg-emerald-50 px-3 py-1 rounded-full">+12.5%</span>
-                    </div>
-                    <div class="w-full bg-slate-100 h-1.5 rounded-full mt-6">
-                        <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 75%"></div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Transaksi Sukses</p>
-                    <div class="flex items-end justify-between">
-                        <h3 class="text-3xl font-black text-slate-900">1,248</h3>
-                        <span class="text-blue-500 font-bold text-xs bg-blue-50 px-3 py-1 rounded-full">+42 Hari Ini</span>
-                    </div>
-                    <div class="w-full bg-slate-100 h-1.5 rounded-full mt-6">
-                        <div class="bg-blue-500 h-1.5 rounded-full" style="width: 60%"></div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Rata-rata Keranjang</p>
-                    <div class="flex items-end justify-between">
-                        <h3 class="text-3xl font-black text-slate-900">Rp 115rb</h3>
-                        <span class="text-slate-500 font-bold text-xs bg-slate-50 px-3 py-1 rounded-full">Stabil</span>
-                    </div>
-                    <div class="w-full bg-slate-100 h-1.5 rounded-full mt-6">
-                        <div class="bg-slate-800 h-1.5 rounded-full" style="width: 45%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                <div class="lg:col-span-2 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
-                    <div class="p-8 border-b border-slate-50 flex justify-between items-center">
-                        <h4 class="font-black text-slate-900 tracking-tight">Riwayat Transaksi Terakhir</h4>
-                        <a href="#" class="text-xs font-bold text-emerald-600 hover:underline">Lihat Semua</a>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                <tr>
-                                    <th class="px-8 py-5">No. Invoice</th>
-                                    <th class="px-8 py-5">Waktu</th>
-                                    <th class="px-8 py-5 text-right">Nominal</th>
-                                    <th class="px-8 py-5 text-center">Metode</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-50 text-sm font-medium">
-                                <tr class="hover:bg-slate-50/50 transition-all cursor-default">
-                                    <td class="px-8 py-6 font-bold text-slate-800">#INV/26/00124</td>
-                                    <td class="px-8 py-6 text-slate-500">Tadi, 10:45</td>
-                                    <td class="px-8 py-6 text-right font-black text-slate-900">Rp 450.000</td>
-                                    <td class="px-8 py-6 text-center">
-                                        <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase">Transfer</span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 transition-all cursor-default">
-                                    <td class="px-8 py-6 font-bold text-slate-800">#INV/26/00123</td>
-                                    <td class="px-8 py-6 text-slate-500">Tadi, 09:20</td>
-                                    <td class="px-8 py-6 text-right font-black text-slate-900">Rp 85.500</td>
-                                    <td class="px-8 py-6 text-center">
-                                        <span class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase">Tunai</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8">
-                    <h4 class="font-black text-slate-900 tracking-tight mb-8">Produk Terlaris</h4>
-                    <div class="space-y-6">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600">
-                                    <i class="fas fa-pills"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold text-slate-800">Paracetamol</p>
-                                    <p class="text-[10px] text-slate-400 font-medium">842 Transaksi</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-black text-emerald-600">Top 1</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
-                                    <i class="fas fa-capsules"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold text-slate-800">Amoxicillin</p>
-                                    <p class="text-[10px] text-slate-400 font-medium">512 Transaksi</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-black text-blue-600">Top 2</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-12 bg-slate-900 rounded-3xl p-6 text-center relative overflow-hidden group">
-                        <div class="relative z-10">
-                            <p class="text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-2">Insight AI</p>
-                            <p class="text-xs text-white leading-relaxed">Penjualan vitamin diprediksi meningkat <span class="text-emerald-400 font-bold">20%</span> minggu depan karena cuaca.</p>
-                        </div>
-                        <i class="fas fa-brain absolute -right-4 -bottom-4 text-white/5 text-6xl"></i>
-                    </div>
-                </div>
-            </div>
-        </main>
+<div class="sidebar">
+    <div class="logo">
+        <div class="logo-icon"><i class="fas fa-plus"></i></div>
+        <div>
+            <h2>ObatKu</h2>
+            <span>Panel Admin</span>
+        </div>
     </div>
+</div>
+
+<div class="main">
+
+<div class="header">
+    <div>
+        <h2 style="margin:0">Dashboard</h2>
+        <small style="color:#777">Ringkasan data apotek</small>
+    </div>
+
+    <div style="display:flex; gap:10px; align-items:center">
+        <button>
+            <i class="fas fa-user"></i> Kasir
+        </button>
+
+        <button onclick="window.location.href='pengaturan.html'">
+            <i class="fas fa-gear"></i>
+        </button>
+    </div>
+</div>
+
+
+    <!-- ===== CARD TAMBAHAN (TANPA UBAH KODE LAIN) ===== -->
+    <div class="cards">
+        <div class="card">
+            <h4>Total Produk</h4>
+            <h2>13</h2>
+        </div>
+
+        <div class="card">
+            <h4>Total Pendapatan</h4>
+            <h2>Rp 8.500</h2>
+        </div>
+
+        <div class="card">
+            <h4>Stok Rendah</h4>
+            <h2 style="color:red">2</h2>
+        </div>
+    </div>
+    <!-- ===== END CARD ===== -->
+
+    <div class="box">
+        <div class="box-header">
+            <h3>Manajemen Stok Obat</h3>
+            <button class="btn" onclick="openTambah()">+ Tambah Obat</button>
+        </div>
+
+        <table>
+            <tr>
+                <th>Nama Obat</th>
+                <th>Kategori</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Expired</th>
+                <th>Aksi</th>
+            </tr>
+            <tr>
+                <td>Paracetamol 500mg</td>
+                <td>Obat Umum</td>
+                <td>8500</td>
+                <td>149</td>
+                <td>2027-06-15</td>
+                <td class="action">
+                    <i class="fas fa-pen" onclick="openEdit(this)"></i>
+                    <i class="fas fa-trash" style="color:red"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modalTambah">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalTitle">Tambah Obat</h3>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+
+        <form>
+            <label>Nama Obat</label>
+            <input type="text" id="nama">
+
+            <label>Kategori</label>
+            <select id="kategori">
+                <option>Obat Umum</option>
+                <option>Vitamin</option>
+                <option>Anak & Bayi</option>
+            </select>
+
+            <label>Harga</label>
+            <input type="number" id="harga">
+
+            <label>Stok</label>
+            <input type="number" id="stok">
+
+            <label>Expired</label>
+            <input type="date" id="expired">
+
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button type="submit" class="btn-save" id="btnSave">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function openTambah(){
+    document.getElementById("modalTitle").innerText = "Tambah Obat";
+    document.getElementById("btnSave").innerText = "Tambah";
+
+    document.getElementById("nama").value = "";
+    document.getElementById("kategori").value = "Obat Umum";
+    document.getElementById("harga").value = "";
+    document.getElementById("stok").value = "";
+    document.getElementById("expired").value = "";
+
+    document.getElementById("modalTambah").style.display="flex";
+}
+
+function openEdit(el){
+    const row = el.closest("tr").children;
+
+    document.getElementById("modalTitle").innerText = "Edit Obat";
+    document.getElementById("btnSave").innerText = "Update";
+
+    document.getElementById("nama").value = row[0].innerText;
+    document.getElementById("kategori").value = row[1].innerText;
+    document.getElementById("harga").value = row[2].innerText;
+    document.getElementById("stok").value = row[3].innerText;
+    document.getElementById("expired").value = row[4].innerText;
+
+    document.getElementById("modalTambah").style.display="flex";
+}
+
+function closeModal(){
+    document.getElementById("modalTambah").style.display="none";
+}
+</script>
 
 </body>
 </html>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-    </style>
+
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+body{
+    margin:0;
+    background:#f5f7fa;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:#fff;
+    position:fixed;
+    border-right:1px solid #e5e7eb;
+    padding:25px;
+}
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:40px;
+}
+.logo-icon{
+    background:#10b981;
+    color:#fff;
+    padding:10px;
+    border-radius:10px;
+}
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
+}
+.menu a.active,
+.menu a:hover{
+    background:#e6f9f2;
+    color:#10b981;
+}
+
+/* ===== MAIN ===== */
+.main{
+    margin-left:260px;
+    padding:30px;
+}
+
+/* ===== HEADER ===== */
+.header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+.header button{
+    padding:10px 18px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    background:#fff;
+    cursor:pointer;
+}
+
+/* ===== CARDS ===== */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:18px;
+    border:1px solid #eee;
+}
+.card h4{
+    margin:0;
+    font-size:14px;
+    color:#888;
+}
+.card h2{
+    margin-top:10px;
+    font-size:26px;
+}
+
+/* ===== TABLE ===== */
+.box{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #eee;
+}
+.box-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+.btn{
+    background:#10b981;
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+}
+th{
+    font-size:13px;
+    color:#777;
+}
+.action i{
+    margin-right:10px;
+    cursor:pointer;
+}
+
+/* ===== MODAL ===== */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+.modal-box{
+    background:#f8fafc;
+    width:460px;
+    padding:25px;
+    border-radius:20px;
+}
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.close{
+    font-size:22px;
+    cursor:pointer;
+}
+form label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-top:12px;
+}
+form input, form select{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin-top:5px;
+}
+.row{
+    display:flex;
+    gap:10px;
+}
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+.btn-cancel{
+    background:#e5e7eb;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+.btn-save{
+    background:#10b981;
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+</style>

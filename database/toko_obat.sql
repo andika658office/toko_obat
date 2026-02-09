@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Feb 2026 pada 06.45
+-- Waktu pembuatan: 09 Feb 2026 pada 01.27
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `toko_obat`
+-- Database: `toko_obat_test`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,22 @@ CREATE TABLE `detail_transaksi` (
   `total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `detail_transaksi`
+--
+
+INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah`, `harga_satuan`, `total`) VALUES
+(1, 1, 2, 2, 5000.00, 10000.00),
+(2, 1, 6, 1, 8000.00, 8000.00),
+(3, 2, 3, 1, 15000.00, 15000.00),
+(4, 2, 9, 2, 12000.00, 24000.00),
+(5, 3, 1, 1, 25000.00, 25000.00),
+(6, 4, 8, 1, 18000.00, 18000.00),
+(7, 5, 5, 1, 30000.00, 30000.00),
+(8, 6, 7, 2, 10000.00, 20000.00),
+(9, 7, 10, 3, 10000.00, 30000.00),
+(10, 8, 4, 2, 12000.00, 24000.00);
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +63,22 @@ CREATE TABLE `kategori_obat` (
   `nama_kategori` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `kategori_obat`
+--
+
+INSERT INTO `kategori_obat` (`id_kategori`, `nama_kategori`) VALUES
+(2, 'Analgesik'),
+(1, 'Antibiotik'),
+(4, 'Antihistamin'),
+(5, 'Antijamur'),
+(6, 'Antipiretik'),
+(7, 'Antiseptik'),
+(8, 'Obat Batuk'),
+(9, 'Obat Flu'),
+(10, 'Suplemen Herbal'),
+(3, 'Vitamin');
+
 -- --------------------------------------------------------
 
 --
@@ -56,10 +88,28 @@ CREATE TABLE `kategori_obat` (
 CREATE TABLE `obat` (
   `id_obat` int(11) NOT NULL,
   `nama_obat` varchar(100) NOT NULL,
-  `id_kategori` int(11) DEFAULT NULL,
+  `id_kategori` int(11) NOT NULL,
   `harga` decimal(10,2) NOT NULL,
-  `stok` int(11) NOT NULL
+  `stok` int(11) DEFAULT 0,
+  `expired_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `obat`
+--
+
+INSERT INTO `obat` (`id_obat`, `nama_obat`, `id_kategori`, `harga`, `stok`, `expired_date`) VALUES
+(1, 'Amoxicillin', 1, 25000.00, 50, '2026-12-01'),
+(2, 'Paracetamol', 6, 5000.00, 100, '2027-01-15'),
+(3, 'Ibuprofen', 2, 15000.00, 80, '2026-11-20'),
+(4, 'Cetirizine', 4, 12000.00, 60, '2026-09-10'),
+(5, 'Fluconazole', 5, 30000.00, 40, '2027-03-05'),
+(6, 'Vitamin C', 3, 8000.00, 200, '2027-05-01'),
+(7, 'Betadine', 7, 10000.00, 70, '2026-08-25'),
+(8, 'OBH Combi', 8, 18000.00, 90, '2026-10-30'),
+(9, 'Decolgen', 9, 12000.00, 120, '2026-12-15'),
+(10, 'Kunyit Asam', 10, 10000.00, 150, '2027-06-01'),
+(15, 'iphone paramex', 1, 12000.00, 12, '2026-02-08');
 
 -- --------------------------------------------------------
 
@@ -71,6 +121,41 @@ CREATE TABLE `obat_supplier` (
   `id_obat` int(11) NOT NULL,
   `id_supplier` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `obat_supplier`
+--
+
+INSERT INTO `obat_supplier` (`id_obat`, `id_supplier`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `role`
+--
+
+CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `role`
+--
+
+INSERT INTO `role` (`role_id`, `role_name`) VALUES
+(1, 'admin'),
+(2, 'kasir');
 
 -- --------------------------------------------------------
 
@@ -85,6 +170,22 @@ CREATE TABLE `supplier` (
   `no_telepon` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `supplier`
+--
+
+INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `no_telepon`) VALUES
+(1, 'PT Sehat Sentosa', 'Jakarta', '0211234567'),
+(2, 'CV Farma Jaya', 'Bandung', '0229876543'),
+(3, 'PT Herbalindo', 'Yogyakarta', '0274123456'),
+(4, 'Apotek Nusantara', 'Surabaya', '0317654321'),
+(5, 'PT Medika Prima', 'Semarang', '0248765432'),
+(6, 'CV Obat Sehat', 'Banjarmasin', '0511321456'),
+(7, 'PT Vita Pharma', 'Makassar', '0411987654'),
+(8, 'PT Indo Farma', 'Medan', '0612345678'),
+(9, 'CV Sumber Sehat', 'Palembang', '0711987654'),
+(10, 'PT Global Medika', 'Balikpapan', '0542765432');
+
 -- --------------------------------------------------------
 
 --
@@ -93,9 +194,25 @@ CREATE TABLE `supplier` (
 
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
-  `tanggal` date NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`) VALUES
+(1, '2026-02-01 02:00:00', 2),
+(2, '2026-02-02 06:30:00', 2),
+(3, '2026-02-03 01:15:00', 2),
+(4, '2026-02-04 08:45:00', 2),
+(5, '2026-02-05 03:20:00', 2),
+(6, '2026-02-06 05:00:00', 2),
+(7, '2026-02-07 07:40:00', 2),
+(8, '2026-02-08 09:25:00', 2),
+(9, '2026-02-09 04:10:00', 2),
+(10, '2026-02-10 10:55:00', 2);
 
 -- --------------------------------------------------------
 
@@ -108,9 +225,17 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `no_telp` char(13) NOT NULL,
-  `role` enum('admin','user') NOT NULL DEFAULT 'user'
+  `no_telp` char(13) DEFAULT NULL,
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `password`, `email`, `no_telp`, `role_id`) VALUES
+(1, 'admin1', 'hash_admin1', 'admin1@tokoobat.com', '081234567890', 1),
+(2, 'kasir1', 'hash_kasir1', 'kasir1@tokoobat.com', '081234567891', 2);
 
 --
 -- Indexes for dumped tables
@@ -136,7 +261,7 @@ ALTER TABLE `kategori_obat`
 --
 ALTER TABLE `obat`
   ADD PRIMARY KEY (`id_obat`),
-  ADD UNIQUE KEY `nama_obat` (`nama_obat`),
+  ADD UNIQUE KEY `nama_obat` (`nama_obat`,`id_kategori`),
   ADD KEY `id_kategori` (`id_kategori`);
 
 --
@@ -147,11 +272,18 @@ ALTER TABLE `obat_supplier`
   ADD KEY `id_supplier` (`id_supplier`);
 
 --
+-- Indeks untuk tabel `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`role_id`),
+  ADD UNIQUE KEY `role_name` (`role_name`);
+
+--
 -- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`),
-  ADD UNIQUE KEY `nama_supplier` (`nama_supplier`,`no_telepon`);
+  ADD UNIQUE KEY `nama_supplier` (`nama_supplier`);
 
 --
 -- Indeks untuk tabel `transaksi`
@@ -165,7 +297,9 @@ ALTER TABLE `transaksi`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -175,37 +309,43 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_obat`
 --
 ALTER TABLE `kategori_obat`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `role`
+--
+ALTER TABLE `role`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -236,6 +376,12 @@ ALTER TABLE `obat_supplier`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+
+--
+-- Ketidakleluasaan untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

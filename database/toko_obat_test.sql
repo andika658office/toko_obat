@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Feb 2026 pada 01.27
+-- Waktu pembuatan: 09 Feb 2026 pada 02.21
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -141,25 +141,6 @@ INSERT INTO `obat_supplier` (`id_obat`, `id_supplier`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `role`
---
-
-CREATE TABLE `role` (
-  `role_id` int(11) NOT NULL,
-  `role_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `role`
---
-
-INSERT INTO `role` (`role_id`, `role_name`) VALUES
-(1, 'admin'),
-(2, 'kasir');
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `supplier`
 --
 
@@ -224,18 +205,16 @@ CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `no_telp` char(13) DEFAULT NULL,
-  `role_id` int(11) NOT NULL
+  `role` enum('admin','kasir') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `password`, `email`, `no_telp`, `role_id`) VALUES
-(1, 'admin1', 'hash_admin1', 'admin1@tokoobat.com', '081234567890', 1),
-(2, 'kasir1', 'hash_kasir1', 'kasir1@tokoobat.com', '081234567891', 2);
+INSERT INTO `user` (`id_user`, `username`, `password`, `role`) VALUES
+(1, 'zuyan', '$2y$10$O5JaCVyemvz71sV7/OaU/egj1rn72AwG80V.16.S4ZuAK1Lxow.D6', 'admin'),
+(2, 'zuyan32', '$2y$10$dnMvJM1NVqb4vlrpDKA30un3qqfLC4IyWJL4B9Q61IpoX5MJ6KwyC', 'kasir');
 
 --
 -- Indexes for dumped tables
@@ -272,13 +251,6 @@ ALTER TABLE `obat_supplier`
   ADD KEY `id_supplier` (`id_supplier`);
 
 --
--- Indeks untuk tabel `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`role_id`),
-  ADD UNIQUE KEY `role_name` (`role_name`);
-
---
 -- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
@@ -298,8 +270,7 @@ ALTER TABLE `transaksi`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `role_id` (`role_id`);
+  ADD KEY `role_id` (`role`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -324,12 +295,6 @@ ALTER TABLE `obat`
   MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `role`
---
-ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
@@ -345,7 +310,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -376,12 +341,6 @@ ALTER TABLE `obat_supplier`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
---
--- Ketidakleluasaan untuk tabel `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

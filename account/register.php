@@ -8,18 +8,19 @@ if (isset($_POST['register'])) {
     $u  = mysqli_real_escape_string($db, $_POST['username']);
     $p  = $_POST['password'];
     $cp = $_POST['confirm_password'];
-    $e  = mysqli_real_escape_string($db, $_POST['email']);
-    $t  = mysqli_real_escape_string($db, $_POST['no_telp']);
+
     // Validasi konfirmasi password
     if ($p !== $cp) {
         echo "Password dan konfirmasi tidak sama!";
         exit();
     }
 
-    // Cek apakah email sudah terdaftar
-    $check = mysqli_query($db, "SELECT * FROM user WHERE email='$e'");
-    if (mysqli_num_rows($check) > 0) {
-        echo "Email sudah digunakan, silakan pakai email lain.";
+    // Cek apakah username sudah ada
+    $check = "SELECT * FROM user WHERE username = '$u'";
+    $result = mysqli_query($db, $check);
+
+    if (mysqli_num_rows($result) > 0) {
+        echo "Username sudah digunakan, silakan pilih yang lain!";
         exit();
     }
 
@@ -27,14 +28,14 @@ if (isset($_POST['register'])) {
     $hashed = password_hash($p, PASSWORD_DEFAULT);
 
     // Insert ke database dengan role default 'user'
-    $sql = "INSERT INTO user (username, password, email, no_telp, role) 
-            VALUES ('$u', '$hashed', '$e', '$t', 'user')";
+    $sql = "INSERT INTO user (username, password, role) 
+            VALUES ('$u', '$hashed', 'user')";
     if (mysqli_query($db, $sql)) {
         // Set session untuk user
         $_SESSION['user'] = true;
         $_SESSION['username'] = $u;
 
-        header('Location: ../index.php');
+        header('Location: ../admin/homeback.php');
         exit();
     } else {
         echo "Error: " . mysqli_error($db);
@@ -88,28 +89,6 @@ if (isset($_POST['register'])) {
                                 <i class="far fa-user"></i>
                             </span>
                             <input name="username" type="text" placeholder="Masukkan nama lengkap"
-                                class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider" >Email</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                                <i class="far fa-envelope"></i>
-                            </span>
-                            <input name="email" type="email" placeholder="nama@email.com"
-                                class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Nomor Telepon</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                                <i class="fas fa-phone-alt"></i>
-                            </span>
-                            <input name="no_telp" type="tel" placeholder="08xxxxxxxxxx"
                                 class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition bg-slate-50">
                         </div>
                     </div>

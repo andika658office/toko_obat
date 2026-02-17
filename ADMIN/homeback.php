@@ -66,10 +66,8 @@ $result = mysqli_query($db, $sql);
     </div>
 
     <div class="hero">
-        <span>🔥 Promo Bulan Ini</span>
         <h1>Kesehatan Keluarga<br>Dimulai dari Sini</h1>
         <p>Temukan obat, vitamin, dan kebutuhan kesehatan dengan harga terbaik.</p>
-        <button>Lihat Promo</button>
     </div>
 
     <div class="section">

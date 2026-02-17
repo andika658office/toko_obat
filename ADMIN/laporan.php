@@ -93,9 +93,12 @@ if (isset($_GET['hapus'])) {
     <!-- MENU -->
     <div class="menu">
         <a href="homeback.php" class="active">
-            <i class="fas fa-chart-line"></i> Dashboard
+            <i class="fas fa-home"></i> Home
         </a>
 
+    <a href ="homeback.php">
+            <i class="fas fa-chart-line"></i> Dashboard
+        </a>
         <a href="laporan.php">
             <i class="fas fa-pills"></i> Obat
         </a>
@@ -116,7 +119,7 @@ if (isset($_GET['hapus'])) {
 
     <div class="header">
         <div>
-            <a href="homeback.php"><h2 style="margin:0">Dashboard</h2></a>
+            <h2>Dashboard</h2>
             <small style="color:#777">Ringkasan data apotek</small>
         </div>
         <div style="display:flex; gap:10px; align-items:center">

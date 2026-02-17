@@ -89,7 +89,28 @@ if (isset($_GET['hapus'])) {
             <span>Panel Admin</span>
         </div>
     </div>
+
+    <!-- MENU -->
+    <div class="menu">
+        <a href="homeback.php" class="active">
+            <i class="fas fa-chart-line"></i> Dashboard
+        </a>
+
+        <a href="laporan.php">
+            <i class="fas fa-pills"></i> Obat
+        </a>
+
+      <a href="supplier/supplier.php">
+    <i class="fas fa-truck"></i> Supplier
+</a>
+
+
+        <a href="transaksi.php">
+            <i class="fas fa-cash-register"></i> Transaksi
+        </a>
+    </div>
 </div>
+
 
 <div class="main">
 

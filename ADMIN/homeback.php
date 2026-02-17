@@ -1,5 +1,12 @@
 <?php
+session_start();
 include '../config/conn.php';
+
+
+// Cek apakah user sudah login
+if (!isset($_SESSION['id_user'])) {
+    die("error: User belum login");
+}
 
 //definisikan variabel keyword untuk menampung kata kunci pencarian
 $keyword = isset($_GET['keyword']) ? mysqli_real_escape_string($db, $_GET['keyword']) : '';
@@ -31,24 +38,8 @@ $result = mysqli_query($db, $sql);
 </head>
 
 <body>
+   
 
-    <div id="cart-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none;"></div>
-    
-    <div id="cart-drawer" style="position: fixed; top: 0; right: -400px; width: 380px; height: 100%; background: white; z-index: 2001; transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
-        <div style="padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="margin: 0;"><i class="fas fa-shopping-cart"></i> Keranjang</h3>
-            <span id="close-cart" style="font-size: 30px; cursor: pointer; color: #999;">&times;</span>
-        </div>
-        
-        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #9ca3af;">
-            <img src="https://cdn-icons-png.flaticon.com/512/11329/11329961.png" width="100" style="opacity: 0.5; margin-bottom: 15px;">
-            <p>Keranjang masih kosong</p>
-        </div>
-
-        <div style="padding: 20px; border-top: 1px solid #eee;">
-            <button style="width: 100%; padding: 15px; background: #10b981; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Checkout Sekarang</button>
-        </div>
-    </div>
     <div class="header">
         <div class="logo">
     <span><i class="fas fa-pills"></i></span> ObatKu
@@ -118,7 +109,7 @@ $result = mysqli_query($db, $sql);
     <div class="products">
         <?php if (mysqli_num_rows($result) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <div class="product">
+                <div class="product" data-id="<?= $row['id_obat']; ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png" alt="Obat">
                     <h4><?php echo htmlspecialchars($row['nama_obat']); ?></h4>
                     <div class="price">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></div>
@@ -129,62 +120,21 @@ $result = mysqli_query($db, $sql);
         <?php endif; ?>
     </div>
 </div>
+    <?php include '../asset/footer.php';?>
 
-    <div class="footer">
-        <div class="footer-grid">
-            <div>
-                     <div class="logo">
-    <span><i class="fas fa-pills"></i></span> ObatKu
-</div>
-                <p>Toko obat terpercaya menyediakan kebutuhan kesehatan keluarga Anda.</p>
-            </div>
-            <div>
-                <h4>Informasi</h4>
-                <ul>
-                    <li><span>📍</span> Jl. Kesehatan No. 123, Jakarta</li>
-                    <li><span>📞</span> (021) 555-1234</li>
-                </ul>
-            </div>
-            <div>
-                <h4>Layanan</h4>
-                <ul>
-                    <li>Cek Kesehatan</li>
-                    <li>Program Loyalitas</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">© 2026 SehatFarma. Semua hak dilindungi.</div>
-    </div>
-
+<?php include '../asset/keranjang.php'; ?>
+</body>
+</html>
 <script>
-    // --- JS UNTUK KERANJANG ---
-    const btnBuka = document.getElementById('btn-buka-keranjang');
-    const drawer = document.getElementById('cart-drawer');
-    const overlay = document.getElementById('cart-overlay');
-    const btnTutup = document.getElementById('close-cart');
-
-    function bukaKeranjang() {
-        drawer.style.right = '0';
-        overlay.style.display = 'block';
-    }
-
-    btnBuka.addEventListener('click', bukaKeranjang);
-
-    function tutupKeranjang() {
-        drawer.style.right = '-400px';
-        overlay.style.display = 'none';
-    }
-
-    btnTutup.addEventListener('click', tutupKeranjang);
-    overlay.addEventListener('click', tutupKeranjang);
-
-    // LOGIKA: Ketika tombol tambah di klik, keranjang langsung terbuka
-    document.addEventListener('click', function (e) {
-        if (e.target && e.target.classList.contains('btn-tambah')) {
-            bukaKeranjang();
-        }
-    });
-
+    //<!-- --- get data fitur tambah ke keranjang --- -->
+    const id = productCard.getAttribute('data-id');
+let existing = cartItems.find(item => item.id == id);
+if (existing) {
+    existing.jumlah += 1;
+} else {
+    cartItems.push({ id: id, nama: nama, harga: harga, jumlah: 1 });
+}
+   
     // --------------------------
 
     const inputKeyword = document.getElementById('keyword');
@@ -245,10 +195,8 @@ $result = mysqli_query($db, $sql);
     });
 </script>
 
-</body>
-</html>
-
 <style>
+  
         /* STYLE ASLI ANDA TANPA PERUBAHAN APAPUN */
         * {
             box-sizing: border-box;
@@ -566,4 +514,6 @@ $result = mysqli_query($db, $sql);
             align-items: center;
             gap: 8px;
         }
+
+        
     </style>

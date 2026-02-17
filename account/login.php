@@ -1,6 +1,6 @@
 <?php
-include '../config/conn.php'; // koneksi pakai $db
 session_start();
+include '../config/conn.php'; // koneksi pakai $db
 
 if (isset($_POST['login'])) {
     $u = mysqli_real_escape_string($db, $_POST['username']);
@@ -15,28 +15,23 @@ if (isset($_POST['login'])) {
 
         // Verifikasi password
         if (password_verify($p, $row['password'])) {
+            // Simpan data user ke session
+            $_SESSION['id_user'] = $row['id_user'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
 
-            // Arahkan sesuai role
-            if ($row['role'] === 'admin') {
-                header('Location: ../admin/homeback.php');
-            } else {
-                header('Location: ../user/home.php');
-            }
+            header("Location: ../ADMIN/homeback.php");
             exit();
         } else {
-            echo "Password salah!";
+            echo "<script>alert('Password salah!');</script>";
         }
     } else {
-        echo "Username tidak ditemukan!";
+        echo "<script>alert('Username tidak ditemukan!');</script>";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,12 +39,8 @@ if (isset($_POST['login'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
 </head>
-
 <body>
-
     <div class="container">
         <div class="left">
             <div class="left-content">
@@ -85,13 +76,8 @@ if (isset($_POST['login'])) {
                             <input name="password" type="password" placeholder="••••••••" required>
                         </div>
                     </div>
-
                     <button type="submit" class="btn-login" name="login">Masuk Ke Akun</button>
                 </form>
-
-                <div class="register-text">
-                    Belum punya akun? <a href="register.php">Daftar Gratis Sekarang</a>
-                </div>
             </div>
         </div>
 

@@ -1,13 +1,24 @@
+<?php
+include '../../config/conn.php';
+
+// Statistik
+$total       = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as total FROM supplier"))['total'];
+$aktif       = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as aktif FROM supplier WHERE status='aktif'"))['aktif'];
+$kadaluarsa  = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as kadaluarsa FROM supplier WHERE status='tidak aktif'"))['kadaluarsa'];
+$bpom        = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as bpom FROM supplier WHERE BPOM='verified'"))['bpom'];
+
+// Ambil semua supplier
+$suppliers = mysqli_query($db, "SELECT * FROM supplier");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Supplier Obat</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-
 <body class="bg-gray-100 font-sans">
 
 <!-- Sidebar -->
@@ -52,22 +63,22 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
     <div class="bg-white p-4 rounded-xl shadow">
       <p class="text-gray-500">Total Supplier</p>
-      <h2 class="text-2xl font-bold mt-2">87</h2>
+      <h2 class="text-2xl font-bold mt-2"><?php echo $total; ?></h2>
     </div>
 
     <div class="bg-white p-4 rounded-xl shadow">
       <p class="text-gray-500">Supplier Aktif</p>
-      <h2 class="text-2xl font-bold mt-2">64</h2>
+      <h2 class="text-2xl font-bold mt-2"><?php echo $aktif; ?></h2>
     </div>
 
     <div class="bg-white p-4 rounded-xl shadow">
       <p class="text-gray-500">Izin Kadaluarsa</p>
-      <h2 class="text-2xl font-bold mt-2">5</h2>
+      <h2 class="text-2xl font-bold mt-2"><?php echo $kadaluarsa; ?></h2>
     </div>
 
     <div class="bg-white p-4 rounded-xl shadow">
       <p class="text-gray-500">BPOM Verified</p>
-      <h2 class="text-2xl font-bold mt-2">72</h2>
+      <h2 class="text-2xl font-bold mt-2"><?php echo $bpom; ?></h2>
     </div>
   </div>
 
@@ -77,27 +88,29 @@
       <thead class="bg-gray-50">
         <tr>
           <th class="p-3 text-left">Supplier</th>
-          <th class="p-3">Jenis</th>
+          <th class="p-3">Alamat</th>
           <th class="p-3">Kontak</th>
           <th class="p-3">BPOM</th>
-          <th class="p-3">Izin</th>
-          <th class="p-3">Rating</th>
           <th class="p-3">Status</th>
         </tr>
       </thead>
 
       <tbody>
+        <?php while($row = mysqli_fetch_assoc($suppliers)) { ?>
         <tr class="hover:bg-gray-50">
-          <td class="p-3">Kimia Farma</td>
-          <td class="text-center">Generik</td>
-          <td class="text-center">021-000</td>
-          <td class="text-center text-green-600">Verified</td>
-          <td class="text-center">2026</td>
-          <td class="text-center">⭐4.9</td>
+          <td class="p-3"><?php echo $row['nama_supplier']; ?></td>
+          <td class="p-3 text-center"><?php echo $row['alamat']; ?></td>
+          <td class="text-center"><?php echo $row['no_telepon']; ?></td>
+          <td class="text-center <?php echo $row['BPOM']=='verified' ? 'text-green-600' : 'text-red-600'; ?>">
+            <?php echo ucfirst($row['BPOM']); ?>
+          </td>
           <td class="text-center">
-            <span class="bg-green-100 px-2 py-1 rounded">Aktif</span>
+            <span class="<?php echo $row['status']=='aktif' ? 'bg-green-100' : 'bg-red-100'; ?> px-2 py-1 rounded">
+              <?php echo ucfirst($row['status']); ?>
+            </span>
           </td>
         </tr>
+        <?php } ?>
       </tbody>
     </table>
   </div>
@@ -115,24 +128,14 @@
   border-right:1px solid #e5e7eb;
   padding:25px;
 }
-
-.logo-icon{
-  background:#10b981;
-  color:#fff;
-  padding:10px;
-  border-radius:10px;
-}
-
 .menu-item{
   padding:10px;
   border-radius:8px;
   transition:0.3s;
 }
-
 .menu-item:hover{
   background:#f3f4f6;
 }
-
 .active{
   background:#10b981;
   color:#fff;

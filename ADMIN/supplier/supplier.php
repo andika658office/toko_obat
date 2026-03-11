@@ -17,24 +17,53 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Supplier Obat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <div class="logo">
-    <div>
-      <h2 class="font-bold text-lg">ObatKu</h2>
-      <span class="text-sm text-gray-500">Panel Admin</span>
-    </div>
-  </div>
 
- <div class="menu flex flex-col gap-3 mt-6">
-  <a href="../laporan.php" class="menu-item">Obat</a>
-  <a href="supplier.php" class="menu-item active">Supplier</a>
+    <!-- Logo -->
+    <div class="logo flex items-center gap-3 mb-6">
+        <div class="logo-icon">
+            <i class="fas fa-plus"></i>
+        </div>
+
+        <div>
+            <h2 class="font-bold text-lg">ObatKu</h2>
+            <span class="text-sm text-gray-500">Panel Admin</span>
+        </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu flex flex-col gap-2">
+
+        <a href="../homeback.php" class="menu-item">
+    <i class="fas fa-home mr-2"></i> Home
+</a>
+
+<a href="../homeback.php" class="menu-item">
+    <i class="fas fa-chart-line mr-2"></i> Dashboard
+</a>
+
+<a href="../laporan.php" class="menu-item">
+    <i class="fas fa-pills mr-2"></i> Obat
+</a>
+
+<a href="supplier.php" class="menu-item active">
+    <i class="fas fa-truck mr-2"></i> Supplier
+</a>
+
+<a href="../transaksi.php" class="menu-item">
+    <i class="fas fa-cash-register mr-2"></i> Transaksi
+</a>
+
+    </div>
+
 </div>
-</div>
+
 
 <!-- MAIN CONTENT -->
 <div class="ml-[260px] p-6">
@@ -53,8 +82,8 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
 
       <button class="px-4 py-2 border rounded-lg bg-white">Filter</button>
 
-      <button class="px-4 py-2 bg-green-600 text-white rounded-lg">
-        + Tambah Supplier
+      <button onclick="openModal()" class="px-4 py-2 bg-green-600 text-white rounded-lg">
+       + Tambah Supplier
       </button>
     </div>
   </div>
@@ -116,7 +145,82 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
   </div>
 
 </div>
+
+<!-- Modal Tambah Supplier -->
+
+<div id="modalSupplier" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center transition-opacity duration-300">
+
+  <div id="modalContent" class="bg-white w-[500px] rounded-xl p-6 shadow-lg transform scale-90 opacity-0 transition-all duration-300">
+
+    <h2 class="text-xl font-bold mb-4">Tambah Supplier</h2>
+
+    <form class="flex flex-col gap-3">
+
+      <input type="text" name="nama_supplier" placeholder="Nama Supplier"
+      class="border p-2 rounded" required>
+
+      <input type="text" name="alamat" placeholder="Alamat"
+      class="border p-2 rounded" required>
+
+      <input type="text" name="no_telepon" placeholder="No Telepon"
+      class="border p-2 rounded" required>
+
+      <select name="BPOM" class="border p-2 rounded">
+        <option value="verified">Verified</option>
+        <option value="belum">Belum</option>
+      </select>
+
+      <select name="status" class="border p-2 rounded">
+        <option value="aktif">Aktif</option>
+        <option value="tidak aktif">Tidak Aktif</option>
+      </select>
+
+      <div class="flex justify-end gap-2 mt-3">
+        <button type="button" onclick="closeModal()"
+        class="px-4 py-2 bg-gray-300 rounded">
+          Batal
+        </button>
+
+        <button type="submit"
+        class="px-4 py-2 bg-green-600 text-white rounded">
+          Simpan
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
 </body>
+<script>
+
+function openModal(){
+  const modal = document.getElementById("modalSupplier");
+  const content = document.getElementById("modalContent");
+
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+
+  setTimeout(() => {
+    content.classList.remove("scale-90","opacity-0");
+    content.classList.add("scale-100","opacity-100");
+  }, 10);
+}
+
+function closeModal(){
+  const modal = document.getElementById("modalSupplier");
+  const content = document.getElementById("modalContent");
+
+  content.classList.remove("scale-100","opacity-100");
+  content.classList.add("scale-90","opacity-0");
+
+  setTimeout(() => {
+    modal.classList.add("hidden");
+  }, 200);
+}
+
+</script>
 </html>
 
 <style>
@@ -139,5 +243,43 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
 .active{
   background:#10b981;
   color:#fff;
+}
+
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:#fff;
+    position:fixed;
+    border-right:1px solid #e5e7eb;
+    padding:25px;
+}
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    padding:10px;
+    border-radius:8px;
+    transition:0.3s;
+    color:#374151;
+}
+
+.menu-item:hover{
+    background:#f3f4f6;
+}
+
+.menu-item.active{
+    background:#10b981;
+    color:white;
+}
+
+.logo-icon{
+    width:35px;
+    height:35px;
+    background:#10b981;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
 }
 </style>

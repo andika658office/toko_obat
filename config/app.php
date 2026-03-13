@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+include 'conn.php';
 
 function query($q)
 { 

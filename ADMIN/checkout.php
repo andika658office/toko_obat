@@ -53,7 +53,10 @@ try {
     }
 
     mysqli_commit($db);
-    echo "success";
+    ob_clean(); // bersihkan buffer
+echo "success";
+exit;
+
 
 } catch (Exception $e) {
     mysqli_rollback($db);

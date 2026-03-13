@@ -56,7 +56,7 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
     <i class="fas fa-truck mr-2"></i> Supplier
 </a>
 
-<a href="../transaksi.php" class="menu-item">
+<a href="../transaksi_obat.php" class="menu-item">
     <i class="fas fa-cash-register mr-2"></i> Transaksi
 </a>
 

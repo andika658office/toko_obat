@@ -2,44 +2,57 @@
 session_start();
 include '../config/conn.php';
 
-
-// Cek apakah user sudah login
+// Cek login
 if (!isset($_SESSION['id_user'])) {
     die("error: User belum login");
 }
 
-//definisikan variabel keyword untuk menampung kata kunci pencarian
+// --- BAGIAN AJAX PENCARIAN ---
+if (isset($_POST['keyword'])) {
+    $keyword = mysqli_real_escape_string($db, $_POST['keyword']);
+    $query = "SELECT * FROM obat WHERE nama_obat LIKE '$keyword%' LIMIT 5";
+    $result = mysqli_query($db, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $nama = htmlspecialchars($row['nama_obat']);
+            $harga = number_format($row['harga'], 0, ',', '.');
+            echo "
+            <div class='result-item' onclick=\"pilihObat('$nama')\">
+                <span class='name'>$nama</span>
+                <span class='price-tag'>Rp $harga</span>
+            </div>";
+        }
+    } else {
+        echo "<div style='padding:15px; text-align:center; color:#999;'>Obat tidak ditemukan...</div>";
+    }
+    exit; // <-- penting, supaya tidak lanjut render HTML
+}
+
+// --- BAGIAN HALAMAN UTAMA ---
 $keyword = isset($_GET['keyword']) ? mysqli_real_escape_string($db, $_GET['keyword']) : '';
-// LOGIKA QUERY
 if ($keyword !== '') {
-    // Jika user mengetik sesuatu, cari obat berdasarkan awalan huruf
     $sql = "SELECT id_obat, nama_obat, harga, stok, expired_date 
             FROM obat 
             WHERE nama_obat LIKE '$keyword%' 
             ORDER BY nama_obat ASC";
 } else {
-
-// Ambil data produk awal untuk ditampilkan di grid bawah
-$sql = "SELECT id_obat, nama_obat, harga, stok, expired_date 
-        FROM obat 
-        ORDER BY id_obat ASC 
-        LIMIT 30";
+    $sql = "SELECT id_obat, nama_obat, harga, stok, expired_date 
+            FROM obat 
+            ORDER BY id_obat ASC 
+            LIMIT 30";
 }
 $result = mysqli_query($db, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <title>SehatFarma | Kasir</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-   
-
     <div class="header">
         <div class="logo">
     <span><i class="fas fa-pills"></i></span> ObatKu
@@ -48,7 +61,6 @@ $result = mysqli_query($db, $sql);
             <input type="text" id="keyword" placeholder="Cari obat (ketik huruf awal)..." autocomplete="off">
             <div id="hasil-pencarian"></div>
         </div>
-
         <div class="header-right">
             <a href="laporan.php" class="btn-gear" title="Pengaturan"><i class="fas fa-gear"></i></a>
 
@@ -60,38 +72,12 @@ $result = mysqli_query($db, $sql);
     <i class="fas fa-power-off"></i>
     <span class="text-logout">Logout</span>
 </a>
-
-            <div class="user">Halo, Admin 1</div>
         </div>
     </div>
 
     <div class="hero">
         <h1>Kesehatan Keluarga<br>Dimulai dari Sini</h1>
         <p>Temukan obat, vitamin, dan kebutuhan kesehatan dengan harga terbaik.</p>
-    </div>
-
-    <div class="section">
-        <h2>Kategori Obat</h2>
-        <div class="categories">
-            <div class="category">
-                <div class="icon">💊</div>Obat Umum
-            </div>
-            <div class="category">
-                <div class="icon">❤️</div>Jantung
-            </div>
-            <div class="category">
-                <div class="icon">👶</div>Anak & Bayi
-            </div>
-            <div class="category">
-                <div class="icon">🌿</div>Herbal
-            </div>
-            <div class="category">
-                <div class="icon">🤒</div>Demam & Flu
-            </div>
-            <div class="category">
-                <div class="icon">👁️</div>Mata & THT
-            </div>
-        </div>
     </div>
 
     <div class="section" id="semua-produk"> <h2>
@@ -119,22 +105,13 @@ $result = mysqli_query($db, $sql);
     </div>
 </div>
     <?php include '../asset/footer.php';?>
-
 <?php include '../asset/keranjang.php'; ?>
 </body>
 </html>
 <script>
-    //<!-- --- get data fitur tambah ke keranjang --- -->
-    const id = productCard.getAttribute('data-id');
-let existing = cartItems.find(item => item.id == id);
-if (existing) {
-    existing.jumlah += 1;
-} else {
-    cartItems.push({ id: id, nama: nama, harga: harga, jumlah: 1 });
-}
-   
-    // --------------------------
+    
 
+    // js fitur search
     const inputKeyword = document.getElementById('keyword');
     const hasilDiv = document.getElementById('hasil-pencarian');
 
@@ -148,7 +125,7 @@ if (existing) {
                     hasilDiv.style.display = 'block';
                 }
             };
-            xhr.open('POST', 'cari.php', true);
+            xhr.open('POST', 'homeback.php', true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send("keyword=" + kataKunci);
         } else {
@@ -185,7 +162,6 @@ if (existing) {
             window.location.href = "homeback.php?keyword=" + namaObat + "#semua-produk";
         }
     }
-
     document.addEventListener('click', function (e) {
         if (!inputKeyword.contains(e.target) && !hasilDiv.contains(e.target)) {
             hasilDiv.style.display = 'none';

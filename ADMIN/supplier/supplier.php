@@ -44,7 +44,7 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
     <i class="fas fa-home mr-2"></i> Home
 </a>
 
-<a href="../homeback.php" class="menu-item">
+<a href="../laporan.php" class="menu-item">
     <i class="fas fa-chart-line mr-2"></i> Dashboard
 </a>
 

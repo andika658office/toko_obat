@@ -92,14 +92,14 @@ if (isset($_GET['hapus'])) {
 
     <!-- MENU -->
     <div class="menu">
-        <a href="homeback.php" class="active">
+        <a href="homeback.php" >
             <i class="fas fa-home"></i> Home
         </a>
 
-    <a href ="homeback.php">
+    <a href ="laporan.php" class="active">
             <i class="fas fa-chart-line"></i> Dashboard
         </a>
-        <a href="laporan.php">
+        <a href="data_obat.php">
             <i class="fas fa-pills"></i> Obat
         </a>
 

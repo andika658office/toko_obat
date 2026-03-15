@@ -8,28 +8,41 @@
     </div>
 
     <!-- MENU -->
-    <div class="menu">
-        <a href="homeback.php" >
-            <i class="fas fa-home"></i> Home
-        </a>
-
-    <a href ="laporan.php" class="active">
-            <i class="fas fa-chart-line"></i> Dashboard
-        </a>
-        <a href="data_obat.php">
-            <i class="fas fa-pills"></i> Obat
-        </a>
-
-      <a href="supplier/supplier.php">
-    <i class="fas fa-truck"></i> Supplier
-</a>
-
-
-        <a href="transaksi.php">
-            <i class="fas fa-cash-register"></i> Transaksi
-        </a>
-    </div>
+  <?php $base = "/toko_obat/ADMIN/"; ?>
+<div class="menu">
+    <a href="<?= $base ?>homeback.php" class="<?= basename($_SERVER['PHP_SELF'])=='homeback.php'?'active':'' ?>">
+        <i class="fas fa-home"></i> Home
+    </a>
+    <a href="<?= $base ?>laporan.php" class="<?= basename($_SERVER['PHP_SELF'])=='laporan.php'?'active':'' ?>">
+        <i class="fas fa-chart-line"></i> Dashboard
+    </a>
+    <a href="<?= $base ?>data_obat.php" class="<?= basename($_SERVER['PHP_SELF'])=='data_obat.php'?'active':'' ?>">
+        <i class="fas fa-pills"></i> Obat
+    </a>
+    <a href="<?= $base ?>supplier/supplier.php" class="<?= basename($_SERVER['PHP_SELF'])=='supplier.php'?'active':'' ?>">
+        <i class="fas fa-truck"></i> Supplier
+    </a>
+    
 </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuLinks = document.querySelectorAll('.sidebar .menu a');
+
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.classList.contains('active')) {
+                e.preventDefault(); // cegah reload
+                const pageName = this.textContent.trim();
+                alert("Kamu sudah berada di " + pageName);
+            }
+        });
+    });
+});
+</script>
+
 
 <style>
     .sidebar {

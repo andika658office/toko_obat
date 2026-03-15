@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['role'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$role = $_SESSION['role'];
 include '../config/conn.php';
 
 
@@ -24,6 +30,11 @@ if (isset($_POST['simpan'])) {
     $harga    = $_POST['harga'];
     $stok     = $_POST['stok'];
     $expired  = $_POST['expired'];
+
+    if ($role !== 'admin') {
+        echo "<script>alert('Anda tidak memiliki akses untuk melakukan aksi ini.'); window.location.href='laporan.php';</script>";
+        exit();
+    }
 
     // Cari id_kategori
     $sqlKat = "SELECT id_kategori FROM kategori_obat WHERE nama_kategori='$kategori' LIMIT 1";
@@ -60,6 +71,11 @@ if (isset($_GET['hapus'])) {
     } else {
         echo "Error: " . mysqli_error($db);
     }
+
+    if ($role !== 'admin') {
+        echo "<script>alert('Anda tidak memiliki akses untuk melakukan aksi ini.'); window.location.href='laporan.php';</script>";
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -94,6 +110,8 @@ if (isset($_GET['hapus'])) {
     <div class="box">
         <div class="box-header">
             <h3>Manajemen Stok Obat</h3>
+            <?php if ($role !== 'admin'): ?>
+            <?php endif; ?>
             <button class="btn" onclick="openTambah()">+ Tambah Obat</button>
         </div>
 
@@ -104,7 +122,9 @@ if (isset($_GET['hapus'])) {
                 <th>Harga</th>
                 <th>Stok</th>
                 <th>Expired</th>
+                <?php if ($role === 'admin'): ?>
                 <th>Aksi</th>
+                <?php endif; ?>
             </tr>
             <?php if (mysqli_num_rows($resObat) > 0): ?>
                 <?php while ($row = mysqli_fetch_assoc($resObat)): ?>
@@ -114,12 +134,14 @@ if (isset($_GET['hapus'])) {
                         <td><?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
                         <td><?php echo $row['stok']; ?></td>
                         <td><?php echo $row['expired_date']; ?></td>
+                        <?php if ($role === 'admin'): ?>
                         <td class="action">
                             <i class="fas fa-pen" onclick="openEdit(this)"></i>
                             <a href="laporan.php?hapus=<?php echo $row['id_obat']; ?>" onclick="return confirm('Yakin hapus obat ini?')">
                                 <i class="fas fa-trash" style="color:red"></i>
                             </a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>

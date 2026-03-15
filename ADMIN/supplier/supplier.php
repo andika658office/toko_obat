@@ -24,46 +24,34 @@ $suppliers = mysqli_query($db, "SELECT * FROM supplier");
 
 <!-- Sidebar -->
 <div class="sidebar">
-
-    <!-- Logo -->
-    <div class="logo flex items-center gap-3 mb-6">
+    <div class="logo">
         <div class="logo-icon">
-            <i class="fas fa-plus"></i>
+            <i class="fas fa-pills"></i>
         </div>
-
         <div>
-            <h2 class="font-bold text-lg">ObatKu</h2>
-            <span class="text-sm text-gray-500">Panel Admin</span>
+            <h2>ObatKu</h2>
+            <span>Panel Admin</span>
         </div>
     </div>
 
-    <!-- Menu -->
-    <div class="menu flex flex-col gap-2">
-
+    <div class="menu">
         <a href="../homeback.php" class="menu-item">
-    <i class="fas fa-home mr-2"></i> Home
-</a>
-
-<a href="../laporan.php" class="menu-item">
-    <i class="fas fa-chart-line mr-2"></i> Dashboard
-</a>
-
-<a href="../laporan.php" class="menu-item">
-    <i class="fas fa-pills mr-2"></i> Obat
-</a>
-
-<a href="supplier.php" class="menu-item active">
-    <i class="fas fa-truck mr-2"></i> Supplier
-</a>
-
-<a href="../transaksi_obat.php" class="menu-item">
-    <i class="fas fa-cash-register mr-2"></i> Transaksi
-</a>
-
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="../laporan.php" class="menu-item">
+            <i class="fas fa-chart-line"></i> Dashboard
+        </a>
+        <a href="../laporan.php" class="menu-item">
+            <i class="fas fa-pills"></i> Obat
+        </a>
+        <a href="supplier.php" class="menu-item active">
+            <i class="fas fa-truck"></i> Supplier
+        </a>
+        <a href="../transaksi_obat.php" class="menu-item">
+            <i class="fas fa-cash-register"></i> Transaksi
+        </a>
     </div>
-
 </div>
-
 
 <!-- MAIN CONTENT -->
 <div class="ml-[260px] p-6">
@@ -224,62 +212,94 @@ function closeModal(){
 </html>
 
 <style>
-.sidebar{
-  width:260px;
-  height:100vh;
-  background:#fff;
-  position:fixed;
-  border-right:1px solid #e5e7eb;
-  padding:25px;
-}
-.menu-item{
-  padding:10px;
-  border-radius:8px;
-  transition:0.3s;
-}
-.menu-item:hover{
-  background:#f3f4f6;
-}
-.active{
-  background:#10b981;
-  color:#fff;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #f9fafb;
 }
 
-.sidebar{
-    width:260px;
-    height:100vh;
-    background:#fff;
-    position:fixed;
-    border-right:1px solid #e5e7eb;
-    padding:25px;
+/* Container Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #f3f4f6;
+    padding: 30px 20px;
 }
 
-.menu-item{
-    display:flex;
-    align-items:center;
-    padding:10px;
-    border-radius:8px;
-    transition:0.3s;
-    color:#374151;
+/* Bagian Logo Besar */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 50px;
 }
 
-.menu-item:hover{
-    background:#f3f4f6;
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    background: #10b981;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 24px;
 }
 
-.menu-item.active{
-    background:#10b981;
-    color:white;
+.logo h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #000;
+    margin: 0;
+    letter-spacing: -1px;
 }
 
-.logo-icon{
-    width:35px;
-    height:35px;
-    background:#10b981;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:8px;
+.logo span {
+    font-size: 14px;
+    color: #111;
+    font-weight: 500;
+}
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #4b5563; 
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background: #f9fafb;
+    color: #000;
+}
+
+.menu-item.active {
+    background: #e6f9f2; 
+    color: #10b981;      
+    font-weight: 600;
+}
+
+.menu-item i {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
 }
 </style>

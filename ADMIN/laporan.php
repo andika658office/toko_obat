@@ -81,39 +81,7 @@ if (isset($_GET['hapus'])) {
 </head>
 <body>
 
-<div class="sidebar">
-    <div class="logo">
-        <div class="logo-icon"><i class="fas fa-plus"></i></div>
-        <div>
-            <h2>ObatKu</h2>
-            <span>Panel Admin</span>
-        </div>
-    </div>
-
-    <!-- MENU -->
-    <div class="menu">
-        <a href="homeback.php" >
-            <i class="fas fa-home"></i> Home
-        </a>
-
-    <a href ="laporan.php" class="active">
-            <i class="fas fa-chart-line"></i> Dashboard
-        </a>
-        <a href="data_obat.php">
-            <i class="fas fa-pills"></i> Obat
-        </a>
-
-      <a href="supplier/supplier.php">
-    <i class="fas fa-truck"></i> Supplier
-</a>
-
-
-        <a href="transaksi.php">
-            <i class="fas fa-cash-register"></i> Transaksi
-        </a>
-    </div>
-</div>
-
+<?php include '../asset/siderbar.php'; ?>
 
 <div class="main">
 

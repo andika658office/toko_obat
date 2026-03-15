@@ -53,29 +53,26 @@ $result = mysqli_query($db, $sql);
 
 <!-- CARD STATISTIK -->
 <div class="row mb-4">
+    <div class="col-md-2"> 
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Produk</h6>
+                <h3 class="fw-bold"><?php echo $totalProduk; ?></h3>
+            </div>
+        </div>
+    </div>
 
-<div class="col-md-4">
-<div class="card shadow-sm border-0">
-<div class="card-body">
-<h6 class="text-muted">Total Produk</h6>
-<h3 class="fw-bold"><?php echo $totalProduk; ?></h3>
+    <div class="col-md-2">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Pendapatan</h6>
+                <h3 class="fw-bold text-success">
+                    Rp <?php echo number_format($totalPendapatan,0,',','.'); ?>
+                </h3>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="card shadow-sm border-0">
-<div class="card-body">
-<h6 class="text-muted">Total Pendapatan</h6>
-<h3 class="fw-bold text-success">
-Rp <?php echo number_format($totalPendapatan,0,',','.'); ?>
-</h3>
-</div>
-</div>
-</div>
-
-</div>
-
 <!-- FILTER TANGGAL -->
 <form method="get" class="mb-4">
 
@@ -187,8 +184,9 @@ margin-left:260px;
 padding:30px;
 }
 
-.card{
-border-radius:14px;
+.card {
+    border-radius: 14px;
+    max-width: 250px; /* Atur angka ini untuk menyesuaikan panjang card */
 }
 
 .table{

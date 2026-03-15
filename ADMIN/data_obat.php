@@ -70,6 +70,7 @@ if (isset($_GET['hapus'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 
@@ -79,8 +80,7 @@ if (isset($_GET['hapus'])) {
 
     <div class="header">
         <div>
-            <h2>Data Obat</h2>
-            
+            <h2>Manajemen Stok Obat</h2>
         </div>
         <div style="display:flex; gap:10px; align-items:center">
             <button><i class="fas fa-user"></i> Kasir</button>
@@ -90,50 +90,54 @@ if (isset($_GET['hapus'])) {
 
     <div class="card"><h4>Stok Rendah</h4><h2 style="color:red"><?php echo $stokRendah; ?></h2></div>
 
+   <div class="flex justify-end">
+<button class="btn" onclick="openTambah()">+ Tambah Obat</button>
+</div>
     <!-- TABEL OBAT -->
-    <div class="box">
-        <div class="box-header">
-            <h3>Manajemen Stok Obat</h3>
-            <button class="btn" onclick="openTambah()">+ Tambah Obat</button>
-        </div>
+     <div class="box">
+    <div class="box-header">
+        
 
-        <!-- perbaikan desain tabel -->
-        <table>
-           <thead class="bg-gray-50">
-        <tr class="border-b">
-        <th class="p-3 text-left">Nama Obat</th>
-        <th class="p-3 text-center">Kategori</th>
-        <th class="p-3 text-center">Harga</th>
-        <th class="p-3 text-center">Stok</th>
-        <th class="p-3 text-center">Expired</th>
-        <th class="p-3 text-center">Aksi</th>
-
-        </tr>
-    </thead>
-    <tbody>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Obat</th>
+                <th>Kategori</th>
+                <th class="text-center">Harga</th>
+                <th class="text-center">Stok</th>
+                <th class="text-center">Expired</th>
+                <th class="text-center">Aksi</th>
+            </tr>
+        </thead>
         <tbody>
             <?php if (mysqli_num_rows($resObat) > 0): ?>
                 <?php while ($row = mysqli_fetch_assoc($resObat)): ?>
                     <tr>
-                        <td data-id="<?php echo $row['id_obat']; ?>"><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                        <td class="font-bold" data-id="<?php echo $row['id_obat']; ?>">
+                            <?php echo htmlspecialchars($row['nama_obat']); ?>
+                        </td>
                         <td><?php echo htmlspecialchars($row['nama_kategori']); ?></td>
-                        <td><?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
-                        <td><?php echo $row['stok']; ?></td>
-                        <td><?php echo $row['expired_date']; ?></td>
-                        <td class="action">
-                            <i class="fas fa-pen" onclick="openEdit(this)"></i>
-                            <a href="laporan.php?hapus=<?php echo $row['id_obat']; ?>" onclick="return confirm('Yakin hapus obat ini?')">
-                                <i class="fas fa-trash" style="color:red"></i>
+                        <td class="text-center">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
+                        <td class="text-center">
+                            <span class="status-badge <?php echo ($row['stok'] < 10) ? 'status-red' : 'status-green'; ?>">
+                                <?php echo $row['stok']; ?>
+                            </span>
+                        </td>
+                        <td class="text-center"><?php echo date('d M Y', strtotime($row['expired_date'])); ?></td>
+                        <td class="action text-center">
+                            <i class="fas fa-pen edit-icon" onclick="openEdit(this)"></i>
+                            <a href="laporan.php?hapus=<?php echo $row['id_obat']; ?>" onclick="return confirm('Yakin hapus?')">
+                                <i class="fas fa-trash delete-icon"></i>
                             </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="6">Tidak ada data obat.</td></tr>
+                <tr><td colspan="6" class="text-center">Tidak ada data obat.</td></tr>
             <?php endif; ?>
         </tbody>
-        </table>
-    </div>
+    </table>
+</div>
 </div>
 
 <!-- MODAL -->
@@ -212,8 +216,6 @@ function closeModal(){
 </script>
 </html>
 
-
-
 <style>
 *{
     box-sizing:border-box;
@@ -269,17 +271,41 @@ body{
 }
 
 /* ===== HEADER ===== */
-.header{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:30px;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin-bottom: 30px;
 }
-.header button{
-    padding:10px 18px;
-    border-radius:10px;
-    border:1px solid #ddd;
-    background:#fff;
-    cursor:pointer;
+
+.header h2 {
+    font-size: 26px;      
+    font-weight: 800;     
+    color: #1a202c;       
+    margin: 0;         
+    letter-spacing: -0.5px; 
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px; 
+}
+
+.header button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    color: #4a5568;
+    transition: 0.2s;
+}
+
+.header button:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
 }
 
 /* ===== CARDS ===== */
@@ -294,6 +320,7 @@ body{
     padding:20px;
     border-radius:18px;
     border:1px solid #eee;
+    width:200px;
 }
 .card h4{
     margin:0;
@@ -305,18 +332,20 @@ body{
     font-size:26px;
 }
 
-/* ===== TABLE ===== */
+/* ===== TABLE MODERN (PERBAIKAN) ===== */
 .box{
     background:#fff;
-    padding:25px;
+    padding:0; /* Reset padding agar header th bisa full ke pinggir */
     border-radius:18px;
     border:1px solid #eee;
+    overflow: hidden; /* Agar sudut tabel tetap melengkung */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 .box-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    padding:25px; /* Padding dikembalikan di sini */
 }
 .btn{
     background:#10b981;
@@ -325,25 +354,63 @@ body{
     padding:10px 16px;
     border-radius:10px;
     cursor:pointer;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 table{
     width:100%;
     border-collapse:collapse;
 }
-th,td{
-    padding:14px;
-    text-align:left;
-    border-bottom:1px solid #eee;
+/* Header Tabel sesuai Gambar Supplier */
+th {
+    background-color: #f8fafc; 
+    color: #4a5568;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 15px 25px;
+    border-bottom: 2px solid #edf2f7;
+    text-align: left;
 }
-th{
-    font-size:13px;
-    font-weight: 800;
-    color:black;
+/* Baris Tabel */
+td {
+    padding: 18px 25px;
+    color: #2d3748;
+    font-size: 14px;
+    border-bottom: 2px solid #e2e8f0;
 }
-.action i{
-    margin-right:10px;
-    cursor:pointer;
+/* Efek Hover Baris */
+tr:hover {
+    background-color: #f9fafb;
 }
+
+/* Class Tambahan untuk Konten */
+.font-bold { font-weight: 700; color: #1a202c; }
+.text-center { text-align: center; }
+.text-muted { color: #718096; }
+
+/* Badge Status untuk Stok */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+.status-green { background-color: #e6fffa; color: #047481; }
+.status-red { background-color: #fff5f5; color: #c53030; }
+
+/* Ikon Aksi */
+.action i {
+    margin-right: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.edit-icon { color: #4a5568; }
+.edit-icon:hover { color: #10b981; }
+.delete-icon { color: #e53e3e; }
+.delete-icon:hover { transform: scale(1.2); }
 
 /* ===== MODAL ===== */
 .modal{

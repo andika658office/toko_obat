@@ -129,4 +129,3 @@ document.addEventListener('DOMContentLoaded', function() {
     text-align: center;
 }
 </style>
-    </style>

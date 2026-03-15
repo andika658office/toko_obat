@@ -97,15 +97,21 @@ if (isset($_GET['hapus'])) {
             <button class="btn" onclick="openTambah()">+ Tambah Obat</button>
         </div>
 
+        <!-- perbaikan desain tabel -->
         <table>
-            <tr>
-                <th>Nama Obat</th>
-                <th>Kategori</th>
-                <th>Harga</th>
-                <th>Stok</th>
-                <th>Expired</th>
-                <th>Aksi</th>
-            </tr>
+           <thead class="bg-gray-50">
+        <tr class="border-b">
+        <th class="p-3 text-left">Nama Obat</th>
+        <th class="p-3 text-center">Kategori</th>
+        <th class="p-3 text-center">Harga</th>
+        <th class="p-3 text-center">Stok</th>
+        <th class="p-3 text-center">Expired</th>
+        <th class="p-3 text-center">Aksi</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tbody>
             <?php if (mysqli_num_rows($resObat) > 0): ?>
                 <?php while ($row = mysqli_fetch_assoc($resObat)): ?>
                     <tr>
@@ -125,6 +131,7 @@ if (isset($_GET['hapus'])) {
             <?php else: ?>
                 <tr><td colspan="6">Tidak ada data obat.</td></tr>
             <?php endif; ?>
+        </tbody>
         </table>
     </div>
 </div>
@@ -330,7 +337,8 @@ th,td{
 }
 th{
     font-size:13px;
-    color:#777;
+    font-weight: 800;
+    color:black;
 }
 .action i{
     margin-right:10px;

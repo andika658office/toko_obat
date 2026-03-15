@@ -106,11 +106,7 @@ if (isset($_GET['hapus'])) {
 
     <div class="card"><h4>Stok Rendah</h4><h2 style="color:red"><?php echo $stokRendah; ?></h2></div>
 
-   <div class="flex justify-end">
-<button class="btn" onclick="openTambah()">+ Tambah Obat</button>
-</div>
     <!-- TABEL OBAT -->
-<<<<<<< HEAD
     <div class="box">
         <div class="box-header">
             <h3>Manajemen Stok Obat</h3>
@@ -118,30 +114,18 @@ if (isset($_GET['hapus'])) {
             <?php endif; ?>
             <button class="btn" onclick="openTambah()">+ Tambah Obat</button>
         </div>
-=======
-     <div class="box">
-    <div class="box-header">
-        
->>>>>>> 2c23313ab8d4b50fb986d01ca55fe8421f9c5cbd
 
     <table>
         <thead>
             <tr>
                 <th>Nama Obat</th>
                 <th>Kategori</th>
-<<<<<<< HEAD
                 <th>Harga</th>
                 <th>Stok</th>
                 <th>Expired</th>
                 <?php if ($role === 'admin'): ?>
                 <th>Aksi</th>
                 <?php endif; ?>
-=======
-                <th class="text-center">Harga</th>
-                <th class="text-center">Stok</th>
-                <th class="text-center">Expired</th>
-                <th class="text-center">Aksi</th>
->>>>>>> 2c23313ab8d4b50fb986d01ca55fe8421f9c5cbd
             </tr>
         </thead>
         <tbody>
@@ -152,7 +136,6 @@ if (isset($_GET['hapus'])) {
                             <?php echo htmlspecialchars($row['nama_obat']); ?>
                         </td>
                         <td><?php echo htmlspecialchars($row['nama_kategori']); ?></td>
-<<<<<<< HEAD
                         <td><?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
                         <td><?php echo $row['stok']; ?></td>
                         <td><?php echo $row['expired_date']; ?></td>
@@ -161,19 +144,6 @@ if (isset($_GET['hapus'])) {
                             <i class="fas fa-pen" onclick="openEdit(this)"></i>
                             <a href="laporan.php?hapus=<?php echo $row['id_obat']; ?>" onclick="return confirm('Yakin hapus obat ini?')">
                                 <i class="fas fa-trash" style="color:red"></i>
-=======
-                        <td class="text-center">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
-                        <td class="text-center">
-                            <span class="status-badge <?php echo ($row['stok'] < 10) ? 'status-red' : 'status-green'; ?>">
-                                <?php echo $row['stok']; ?>
-                            </span>
-                        </td>
-                        <td class="text-center"><?php echo date('d M Y', strtotime($row['expired_date'])); ?></td>
-                        <td class="action text-center">
-                            <i class="fas fa-pen edit-icon" onclick="openEdit(this)"></i>
-                            <a href="laporan.php?hapus=<?php echo $row['id_obat']; ?>" onclick="return confirm('Yakin hapus?')">
-                                <i class="fas fa-trash delete-icon"></i>
->>>>>>> 2c23313ab8d4b50fb986d01ca55fe8421f9c5cbd
                             </a>
                         </td>
                         <?php endif; ?>

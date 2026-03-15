@@ -37,8 +37,10 @@ $suppliers = mysqli_query($db, $sql);
   <title>Supplier Obat</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <?php include '../../asset/siderbar.php'?>
 </head>
+
+ <?php include '../../asset/siderbar.php'?>
+
 <body class="bg-gray-100 font-sans">
 
 <div class="ml-[260px] p-6">
@@ -91,35 +93,58 @@ $suppliers = mysqli_query($db, $sql);
 
   <!-- Table Container -->
   <div id="supplierTable" class="bg-white rounded-xl shadow mt-6 overflow-x-auto">
-    <table class="w-full text-sm">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="p-3 text-left">Supplier</th>
-          <th class="p-3">Alamat</th>
-          <th class="p-3">Kontak</th>
-          <th class="p-3">BPOM</th>
-          <th class="p-3">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while($row = mysqli_fetch_assoc($suppliers)) { ?>
-        <tr class="hover:bg-gray-50">
-          <td class="p-3"><?php echo $row['nama_supplier']; ?></td>
-          <td class="p-3 text-center"><?php echo $row['alamat']; ?></td>
-          <td class="text-center"><?php echo $row['no_telepon']; ?></td>
-          <td class="text-center <?php echo $row['BPOM']=='verified' ? 'text-green-600' : 'text-red-600'; ?>">
+
+  <table class="w-full text-sm border-collapse">
+
+    <thead class="bg-gray-50">
+      <tr class="border-b">
+        <th class="p-3 text-left">Supplier</th>
+        <th class="p-3 text-center">Alamat</th>
+        <th class="p-3 text-center">Kontak</th>
+        <th class="p-3 text-center">BPOM</th>
+        <th class="p-3 text-center">Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <?php while($row = mysqli_fetch_assoc($suppliers)) { ?>
+
+      <tr class="hover:bg-gray-50 border-b">
+
+        <td class="p-3 font-medium">
+          <?php echo $row['nama_supplier']; ?>
+        </td>
+
+        <td class="p-3 text-center">
+          <?php echo $row['alamat']; ?>
+        </td>
+
+        <td class="p-3 text-center">
+          <?php echo $row['no_telepon']; ?>
+        </td>
+
+        <td class="p-3 text-center">
+          <span class="<?php echo $row['BPOM']=='verified' ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'; ?>">
             <?php echo ucfirst($row['BPOM']); ?>
-          </td>
-          <td class="text-center">
-            <span class="<?php echo $row['status']=='aktif' ? 'bg-green-100' : 'bg-red-100'; ?> px-2 py-1 rounded">
-              <?php echo ucfirst($row['status']); ?>
-            </span>
-          </td>
-        </tr>
-        <?php } ?>
-      </tbody>
-    </table>
-  </div>
+          </span>
+        </td>
+
+        <td class="p-3 text-center">
+          <span class="<?php echo $row['status']=='aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> px-3 py-1 rounded-full text-xs font-semibold">
+            <?php echo ucfirst($row['status']); ?>
+          </span>
+        </td>
+
+      </tr>
+
+      <?php } ?>
+
+    </tbody>
+
+  </table>
+
+</div>
 </div>
 
 <script>
@@ -157,85 +182,40 @@ body {
 }
 
 /* Container Sidebar */
-.sidebar {
-    width: 260px;
-    height: 100vh;
-    background: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-right: 1px solid #f3f4f6;
-    padding: 30px 20px;
+  .sidebar{
+    width:260px;
+    height:100vh;
+    background:#fff;
+    position:fixed;
+    border-right:1px solid #e5e7eb;
+    padding:25px;
 }
-
-/* Bagian Logo Besar */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 50px;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:40px;
 }
-
-.logo-icon {
-    width: 50px;
-    height: 50px;
-    background: #10b981;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    font-size: 24px;
+.logo-icon{
+    background:#10b981;
+    color:#fff;
+    padding:10px;
+    border-radius:10px;
 }
-
-.logo h2 {
-    font-size: 24px;
-    font-weight: 800;
-    color: #000;
-    margin: 0;
-    letter-spacing: -1px;
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
 }
-
-.logo span {
-    font-size: 14px;
-    color: #111;
-    font-weight: 500;
-}
-
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 18px;
-    text-decoration: none;
-    color: #4b5563; 
-    font-weight: 500;
-    font-size: 15px;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-}
-
-.menu-item:hover {
-    background: #f9fafb;
-    color: #000;
-}
-
-.menu-item.active {
-    background: #e6f9f2; 
-    color: #10b981;      
-    font-weight: 600;
-}
-
-.menu-item i {
-    font-size: 18px;
-    width: 20px;
-    text-align: center;
+.menu a.active,
+.menu a:hover{
+    background:#e6f9f2;
+    color:#10b981;
 }
 </style>

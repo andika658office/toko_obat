@@ -2,6 +2,7 @@
 session_start();
 include '../config/conn.php'; // koneksi pakai $db
 
+
 if (isset($_POST['login'])) {
     $u = mysqli_real_escape_string($db, $_POST['username']);
     $p = $_POST['password'];
@@ -29,6 +30,11 @@ if (isset($_POST['login'])) {
         echo "<script>alert('Username tidak ditemukan!');</script>";
     }
 }
+
+if (isset($_POST['user'])) {
+    header("location: ../user/home.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -46,7 +52,7 @@ if (isset($_POST['login'])) {
             <div class="left-content">
                 <div class="brand">
                     <div class="logo">
-                        <i class="fas fa-prescription-bottle-medical"></i>
+                        <i class="fas fa-pills"></i>
                     </div>
                     <div>
                         <h3>ObatKu</h3>
@@ -55,7 +61,7 @@ if (isset($_POST['login'])) {
                 </div>
 
                 <h1>Selamat Datang! 👋</h1>
-                <p class="subtitle">Masuk ke akun Anda untuk mulai memesan obat.</p>
+                <p class="subtitle">Masuk ke akun Anda untuk mulai kelola obat</p>
 
                 <form action="" method="POST">
                     <div class="form-group">
@@ -73,10 +79,11 @@ if (isset($_POST['login'])) {
                         </div>
                         <div class="input-box">
                             <i class="fas fa-lock"></i>
-                            <input name="password" type="password" placeholder="••••••••" required>
+                            <input name="password" type="password" required>
                         </div>
                     </div>
                     <button type="submit" class="btn-login" name="login">Masuk Ke Akun</button>
+                    <button type="submit" class="btn-login" name="user">Masuk UI USER</button>
                 </form>
             </div>
         </div>
@@ -91,8 +98,7 @@ if (isset($_POST['login'])) {
 
             <h2>Kesehatan Anda,<br>Prioritas Utama Kami</h2>
             <p>
-                Dapatkan akses ke ribuan jenis obat berkualitas dengan harga terbaik.
-                Layanan pengantaran cepat 24/7 langsung ke pintu Anda.
+                Dapatkan akses ke berbagai jenis obat berkualitas dengan harga terbaik.
             </p>
 
             <div class="stats">
@@ -104,15 +110,14 @@ if (isset($_POST['login'])) {
                     <h3>60K+</h3>
                     <span>Pelanggan</span>
                 </div>
-                <div class="stat-item">
-                    <h3>24/7</h3>
-                    <span>Layanan</span>
-                </div>
+                
             </div>
         </div>
     </div>
 
 </body>
+
+</html>
 <style>
     * {
         margin: 0;
@@ -396,5 +401,3 @@ if (isset($_POST['login'])) {
         /* Info kesehatan muncul di atas pada HP */
     }
 </style>
-
-</html>

@@ -106,15 +106,14 @@ if (isset($_GET['hapus'])) {
 
     <div class="card"><h4>Stok Rendah</h4><h2 style="color:red"><?php echo $stokRendah; ?></h2></div>
 
-    <!-- TABEL OBAT -->
-    <div class="box">
-        <div class="box-header">
-            <h3>Manajemen Stok Obat</h3>
+    <div class="box-header">
             <?php if ($role !== 'admin'): ?>
             <?php endif; ?>
             <button class="btn" onclick="openTambah()">+ Tambah Obat</button>
         </div>
-
+        
+    <!-- TABEL OBAT -->
+    <div class="box">
     <table>
         <thead>
             <tr>

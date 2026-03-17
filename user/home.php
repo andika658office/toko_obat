@@ -12,37 +12,43 @@
 
 <nav>
     <div class="logo-container">
-        <div class="logo-icon"><i class="fas fa-plus"></i></div>
+        <div class="logo-icon"><i class="fas fa-pills"></i></div>
         <div class="logo-text">
             <b>ObatKu</b>
-            <span>Toko Obat Terpercaya</span>
         </div>
     </div>
 
     <ul class="menu">
         <li><a href="#home">Beranda</a></li>
-        <li><a href="#data_obat">Produk</a></li>
-        <li><a href="#laporan">Tentang Kami</a></li>
+        <li><a href="#produk">Produk</a></li>
+        <li><a href="#tentang">Tentang Kami</a></li>
         <li><a href="#kontak">Kontak</a></li>
     </ul>
 
- 
+<a href="../account/logout.php" 
+   class="group relative flex items-center justify-start w-12 h-12 overflow-hidden bg-emerald-500 text-white rounded-full transition-all duration-500 hover:w-[240px] hover:rounded-2xl active:scale-95 shadow-lg shadow-emerald-200"
+   title="kembali ke halaman login">
+
+    <div class="flex items-center justify-center w-12 h-12 shrink-0">
+        <i class="fas fa-sign-out-alt"></i>
+    </div>
+
+    <span class="pr-5 font-bold text-sm opacity-0 transform -translate-x-5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 whitespace-nowrap">
+        Kembali ke Login
+    </span>
+</a>
 </nav>
 
-<section class="hero">
+<section class="hero" id='home'>
     <div class="hero-content">
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-emerald-50 mb-8">
             <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Apotek Online Terpercaya</span>
+            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">toko obat Terpercaya</span>
         </div>
-        <h1>Kesehatan Anda,<br><span>Prioritas Kami</span></h1>
+        <h1 >Kesehatan Anda<br>
+        <span>Prioritas Kami</span></h1>
         <p class="text-slate-500 text-lg mb-10 max-w-md leading-relaxed">Dapatkan obat-obatan berkualitas dengan harga terjangkau. Pesan mudah, pengiriman cepat ke seluruh Indonesia.</p>
         
-        <div class="flex gap-4">
-            <a href="data_obat.php" class="px-8 py-4 bg-emerald-500 text-white rounded-2xl font-bold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-200 flex items-center gap-3">
-                Belanja Sekarang <i class="fas fa-arrow-right text-sm"></i>
-            </a>
-        </div>
     </div>
 
     <div class="flex-1 flex justify-center relative">
@@ -60,11 +66,11 @@
             </div>
             <div>
                 <div class="text-xl font-extrabold text-slate-800">10.000+</div>
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Produk Tersedia</div>
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" >Produk Tersedia</div>
             </div>
         </div>
 
-        <div class="absolute bottom-10 -right-12 p-4 bg-white rounded-2xl shadow-xl flex flex-col gap-2 border border-slate-50 w-40 animate-pulse ">
+        <div class="absolute bottom-10 -right-12 p-4 bg-white rounded-2xl shadow-xl flex flex-col gap-2 border border-slate-50 w-40 animate-pulse " >
             <div class="w-full h-20 bg-slate-100 rounded-xl flex items-center justify-center animate-bounce duration-[3000ms]">
                 <i class="fas fa-bottle-medication text-slate-300 text-2xl"></i>
             </div>
@@ -98,9 +104,8 @@
 </div>
 </section>
 
-<section class="py-20 px-[8%] bg-slate-50/50">
+<section class="py-20 px-[8%] bg-slate-50/50" id='produk'>
     <div class="text-center mb-12">
-        <span class="px-4 py-1.5 bg-emerald-100 text-emerald-600 rounded-full text-xs font-bold uppercase tracking-wider">Katalog Produk</span>
         <h2 class="text-4xl font-extrabold mt-4 text-slate-800">Produk <span class="text-emerald-500">Unggulan</span> Kami</h2>
         <p class="text-slate-500 mt-3 max-w-2xl mx-auto">Temukan berbagai obat dan produk kesehatan berkualitas tinggi </p>
     </div>
@@ -128,26 +133,24 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-medium">(234 ulasan)</span>
                 </div>
             </div>
 
             <div class="flex items-center justify-between mt-auto">
                 <div>
                     <span class="block text-xl font-extrabold text-slate-900">Rp 15.000</span>
-                    <span class="text-xs text-slate-400 line-through">Rp 20.000</span>
+                    
                 </div>
             </div>
-            
-            <button class="w-full mt-5 py-3.5 bg-emerald-500 text-white rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all active:scale-95 shadow-lg shadow-emerald-100">
-                <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
-            </button>
+        
+
         </div>
     </div>
 </div>
 </section>
 
-<section class="py-24 px-[8%] bg-white overflow-hidden">
+<div id='tentang'><span></span></div>
+<section class="py-24 px-[8%] bg-white overflow-hidden" >
     <div class="flex flex-col lg:flex-row items-center gap-16">
         <div class="flex-1 space-y-8">
             <div class="inline-flex items-center px-4 py-2 bg-emerald-50 text-emerald-600 rounded-full text-xs font-bold uppercase tracking-widest">
@@ -170,9 +173,6 @@
             <div class="flex flex-wrap gap-4 pt-4">
                 <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-600">
                     <i class="fas fa-check-circle text-emerald-500"></i> BPOM Certified
-                </div>
-                <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-600">
-                    <i class="fas fa-check-circle text-emerald-500"></i> ISO 9001
                 </div>
                 <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-600">
                     <i class="fas fa-check-circle text-emerald-500"></i> Halal MUI
@@ -261,7 +261,7 @@
                     <i class="fas fa-map-marker-alt text-emerald-500 mt-1"></i>
                     <span>Jl. Kesehatan No. 123, Jakarta Selatan 12345</span>
                 </li>
-                <li class="flex items-center gap-3">
+                <li class="flex items-center gap-3" id='kontak'>
                     <i class="fas fa-phone-alt text-emerald-500"></i>
                     <span>0812-3456-7890</span>
                 </li>
@@ -313,6 +313,8 @@ window.onclick = function(e) {
 </html>
 
 <style>
+
+        html{scroll-behavior: smooth;}
         :root {
             --primary: #10b981;
             --primary-dark: #059669;
@@ -574,4 +576,6 @@ window.onclick = function(e) {
         .hero { padding-top: 120px; min-height: 90vh; display: flex; align-items: center; padding-inline: 8%; background: radial-gradient(circle at 80% 20%, #eefdf5 0%, #ffffff 50%); }
         .hero-content h1 { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
         .hero-content h1 span { color: var(--primary); }
+
+   
     </style>

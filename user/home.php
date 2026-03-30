@@ -36,7 +36,7 @@
     <span class="pr-5 font-bold text-sm opacity-0 transform -translate-x-5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 whitespace-nowrap">
         Kembali ke Login
     </span>
-</a>
+</a>v
 </nav>
 
 <section class="hero" id='home'>

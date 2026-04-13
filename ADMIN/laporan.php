@@ -7,10 +7,7 @@ if (!isset($_SESSION['id_user'])) {
     die("Error: User belum login");
 }
 
-// Hitung total produk
-$sqlProduk = "SELECT COUNT(*) AS total_produk FROM obat";
-$resProduk = mysqli_query($db, $sqlProduk);
-$totalProduk = mysqli_fetch_assoc($resProduk)['total_produk'];
+
 
 // Hitung total pendapatan
 $sqlPendapatan = "SELECT SUM(total) AS total_pendapatan FROM detail_transaksi";
@@ -53,15 +50,7 @@ $result = mysqli_query($db, $sql);
 
 <!-- CARD STATISTIK -->
 <div class="row mb-4">
-    <div class="col-md-2"> 
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <h6 class="text-muted">Total Produk</h6>
-                <h3 class="fw-bold"><?php echo $totalProduk; ?></h3>
-            </div>
-        </div>
-    </div>
-
+    
     <div class="col-md-2">
         <div class="card shadow-sm border-0">
             <div class="card-body">
@@ -101,7 +90,6 @@ style="max-width:200px;">
 <thead class="table-light">
 
 <tr>
-<th>ID Transaksi</th>
 <th>Tanggal</th>
 <th>Kasir</th>
 <th>Obat</th>
@@ -119,9 +107,6 @@ style="max-width:200px;">
 
 <tr>
 
-<td class="fw-semibold">
-<?= $row['id_transaksi']; ?>
-</td>
 
 <td>
 <?= $row['tanggal']; ?>

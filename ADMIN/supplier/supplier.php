@@ -1,5 +1,7 @@
 <?php
+session_start();
 include '../../config/conn.php';
+
 
 // Statistik
 $total       = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as total FROM supplier"))['total'];

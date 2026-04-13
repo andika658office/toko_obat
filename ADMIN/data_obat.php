@@ -40,7 +40,7 @@ if (isset($_POST['simpan']) && $role === 'admin') {
     $stok     = intval($_POST['stok']);
     $expired  = $_POST['expired'];
 
-    // Ambil ID Kategori berdasarkan nama (asumsi kategori sudah ada di tabel kategori_obat)
+    // Ambil ID Kategori
     $sqlKat = "SELECT id_kategori FROM kategori_obat WHERE nama_kategori='$kategori' LIMIT 1";
     $resKat = mysqli_query($db, $sqlKat);
     $rowKat = mysqli_fetch_assoc($resKat);
@@ -63,12 +63,27 @@ if (isset($_POST['simpan']) && $role === 'admin') {
         $msg = "Data obat berhasil ditambahkan";
     }
 
+   try {
     if (mysqli_query($db, $sql)) {
         echo "<script>alert('$msg'); window.location.href='data_obat.php';</script>";
     } else {
-        echo "Error: " . mysqli_error($db);
+        // kalau query gagal tapi bukan exception
+        echo "<script>alert('Terjadi kesalahan query: " . mysqli_error($db) . "'); window.location.href='data_obat.php';</script>";
+    }
+} catch (mysqli_sql_exception $e) {
+    // cek apakah error karena duplicate entry
+    if ($e->getCode() == 1062) {
+        echo "<script>alert('Data obat sudah pernah ada, silakan gunakan nama lain atau update data yang ada'); window.location.href='data_obat.php';</script>";
+    } else {
+        echo "<script>alert('Error lain: " . $e->getMessage() . "'); window.location.href='data_obat.php';</script>";
     }
 }
+
+}
+
+
+
+
 
 // ====== AMBIL DATA UNTUK TAMPILAN ======
 $stokRendah = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) AS total FROM obat WHERE stok < 50"))['total'];

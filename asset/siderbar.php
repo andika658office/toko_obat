@@ -1,3 +1,7 @@
+<?php 
+
+$role = $_SESSION['role'] ?? ''; // kalau belum ada, isi string kosong
+?>
 <div class="sidebar">
     <div class="logo">
         <div class="logo-icon"><i class="fas fa-pills"></i></div>
@@ -19,10 +23,11 @@
     <a href="<?= $base ?>data_obat.php" class="<?= basename($_SERVER['PHP_SELF'])=='data_obat.php'?'active':'' ?>">
         <i class="fas fa-pills"></i> Obat
     </a>
-    <a href="<?= $base ?>supplier/supplier.php" class="<?= basename($_SERVER['PHP_SELF'])=='supplier.php'?'active':'' ?>">
-        <i class="fas fa-truck"></i> Supplier
-    </a>
-    
+   <?php if ($role === 'admin'): ?>
+        <a href="<?= $base ?>supplier/supplier.php" class="<?= basename($_SERVER['PHP_SELF'])=='supplier.php'?'active':'' ?>">
+            <i class="fas fa-truck"></i> Supplier
+        </a>
+        <?php endif; ?>
 </div>
 
 </div>

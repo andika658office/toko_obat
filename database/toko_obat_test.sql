@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Feb 2026 pada 02.21
+-- Waktu pembuatan: 14 Apr 2026 pada 00.52
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -50,7 +50,9 @@ INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah`
 (7, 5, 5, 1, 30000.00, 30000.00),
 (8, 6, 7, 2, 10000.00, 20000.00),
 (9, 7, 10, 3, 10000.00, 30000.00),
-(10, 8, 4, 2, 12000.00, 24000.00);
+(10, 8, 4, 2, 12000.00, 24000.00),
+(11, 11, 1, 4, 25000.00, 100000.00),
+(12, 11, 3, 2, 15000.00, 30000.00);
 
 -- --------------------------------------------------------
 
@@ -99,17 +101,16 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`id_obat`, `nama_obat`, `id_kategori`, `harga`, `stok`, `expired_date`) VALUES
-(1, 'Amoxicillin', 1, 25000.00, 50, '2026-12-01'),
+(1, 'Amoxicillin', 1, 25000.00, 46, '2026-12-01'),
 (2, 'Paracetamol', 6, 5000.00, 100, '2027-01-15'),
-(3, 'Ibuprofen', 2, 15000.00, 80, '2026-11-20'),
+(3, 'Ibuprofen', 2, 15000.00, 78, '2026-11-20'),
 (4, 'Cetirizine', 4, 12000.00, 60, '2026-09-10'),
 (5, 'Fluconazole', 5, 30000.00, 40, '2027-03-05'),
 (6, 'Vitamin C', 3, 8000.00, 200, '2027-05-01'),
 (7, 'Betadine', 7, 10000.00, 70, '2026-08-25'),
 (8, 'OBH Combi', 8, 18000.00, 90, '2026-10-30'),
 (9, 'Decolgen', 9, 12000.00, 120, '2026-12-15'),
-(10, 'Kunyit Asam', 10, 10000.00, 150, '2027-06-01'),
-(15, 'iphone paramex', 1, 12000.00, 12, '2026-02-08');
+(10, 'Kunyit Asam', 10, 10000.00, 150, '2027-06-01');
 
 -- --------------------------------------------------------
 
@@ -148,24 +149,26 @@ CREATE TABLE `supplier` (
   `id_supplier` int(11) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL,
   `alamat` text DEFAULT NULL,
-  `no_telepon` varchar(20) DEFAULT NULL
+  `no_telepon` varchar(20) DEFAULT NULL,
+  `status` enum('aktif','tidak aktif') DEFAULT 'aktif',
+  `BPOM` enum('verified','unverified') DEFAULT 'unverified'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `supplier`
 --
 
-INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `no_telepon`) VALUES
-(1, 'PT Sehat Sentosa', 'Jakarta', '0211234567'),
-(2, 'CV Farma Jaya', 'Bandung', '0229876543'),
-(3, 'PT Herbalindo', 'Yogyakarta', '0274123456'),
-(4, 'Apotek Nusantara', 'Surabaya', '0317654321'),
-(5, 'PT Medika Prima', 'Semarang', '0248765432'),
-(6, 'CV Obat Sehat', 'Banjarmasin', '0511321456'),
-(7, 'PT Vita Pharma', 'Makassar', '0411987654'),
-(8, 'PT Indo Farma', 'Medan', '0612345678'),
-(9, 'CV Sumber Sehat', 'Palembang', '0711987654'),
-(10, 'PT Global Medika', 'Balikpapan', '0542765432');
+INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `no_telepon`, `status`, `BPOM`) VALUES
+(1, 'PT Sehat Sentosa', 'Jakarta', '0211234567', 'aktif', 'verified'),
+(2, 'CV Farma Jaya', 'Bandung', '0229876543', 'tidak aktif', 'verified'),
+(3, 'PT Herbalindo', 'Yogyakarta', '0274123456', 'aktif', 'verified'),
+(4, 'Apotek Nusantara', 'Surabaya', '0317654321', 'aktif', 'verified'),
+(5, 'PT Medika Prima', 'Semarang', '0248765432', 'aktif', 'verified'),
+(6, 'CV Obat Sehat', 'Banjarmasin', '0511321456', 'aktif', 'verified'),
+(7, 'PT Vita Pharma', 'Makassar', '0411987654', 'aktif', 'verified'),
+(8, 'PT Indo Farma', 'Medan', '0612345678', 'aktif', 'verified'),
+(9, 'CV Sumber Sehat', 'Palembang', '0711987654', 'aktif', 'verified'),
+(10, 'PT Global Medika', 'Balikpapan', '0542765432', 'aktif', 'verified');
 
 -- --------------------------------------------------------
 
@@ -193,7 +196,8 @@ INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`) VALUES
 (7, '2026-02-07 07:40:00', 2),
 (8, '2026-02-08 09:25:00', 2),
 (9, '2026-02-09 04:10:00', 2),
-(10, '2026-02-10 10:55:00', 2);
+(10, '2026-02-10 10:55:00', 2),
+(11, '2026-04-05 15:33:48', 1);
 
 -- --------------------------------------------------------
 
@@ -240,8 +244,9 @@ ALTER TABLE `kategori_obat`
 --
 ALTER TABLE `obat`
   ADD PRIMARY KEY (`id_obat`),
-  ADD UNIQUE KEY `nama_obat` (`nama_obat`,`id_kategori`),
-  ADD KEY `id_kategori` (`id_kategori`);
+  ADD UNIQUE KEY `nama_obat_2` (`nama_obat`),
+  ADD KEY `id_kategori` (`id_kategori`),
+  ADD KEY `nama_obat` (`nama_obat`);
 
 --
 -- Indeks untuk tabel `obat_supplier`
@@ -255,7 +260,8 @@ ALTER TABLE `obat_supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`),
-  ADD UNIQUE KEY `nama_supplier` (`nama_supplier`);
+  ADD UNIQUE KEY `nama_supplier` (`nama_supplier`),
+  ADD UNIQUE KEY `nama_supplier_2` (`nama_supplier`);
 
 --
 -- Indeks untuk tabel `transaksi`
@@ -270,7 +276,8 @@ ALTER TABLE `transaksi`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD KEY `role_id` (`role`);
+  ADD UNIQUE KEY `username_2` (`username`),
+  ADD KEY `role` (`role`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -280,7 +287,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_obat`
@@ -292,19 +299,19 @@ ALTER TABLE `kategori_obat`
 -- AUTO_INCREMENT untuk tabel `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

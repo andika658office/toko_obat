@@ -7,6 +7,8 @@ if (!isset($_SESSION['id_user'])) {
     die("error: User belum login");
 }
 
+
+
 // --- BAGIAN AJAX PENCARIAN ---
 if (isset($_POST['keyword'])) {
     $keyword = mysqli_real_escape_string($db, $_POST['keyword']);
@@ -51,8 +53,11 @@ $result = mysqli_query($db, $sql);
     <title>SehatFarma | Kasir</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tambahkan Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+
     <div class="header">
         <div class="logo">
     <span><i class="fas fa-pills"></i></span> ObatKu
@@ -80,34 +85,42 @@ $result = mysqli_query($db, $sql);
         <p>Temukan obat, vitamin, dan kebutuhan kesehatan dengan harga terbaik.</p>
     </div>
 
-    <div class="section" id="semua-produk"> <h2>
-        <?php echo ($keyword !== '') ? "Hasil Pencarian: '$keyword'" : "Semua Produk"; ?>
-    </h2>
-    
-    <?php if ($keyword !== ''): ?>
-        <a href="homeback.php" style="color: #10b981; text-decoration: none; font-size: 14px;">
-            <i class="fas fa-times"></i> Hapus Pencarian
-        </a>
-    <?php endif; ?>
-
-    <div class="products">
+<div class="products">
+   <?php 
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <!-- Wrapper flex agar card di tengah -->
+        <div class="flex justify-center items-center min-h-screen">
+            <!-- Card pesan admin -->
+            <div class="bg-green-100 border border-green-300 rounded-xl p-10 w-3/4 max-w-3xl text-center shadow-lg">
+                <h3 class="text-2xl font-bold text-green-700 mb-4">👩‍⚕️ Mode Admin</h3>
+                <p class="text-green-600 text-lg">
+                    Produk tidak ditampilkan untuk Admin.<br>
+                    Gunakan menu manajemen di sidebar untuk mengelola data obat.
+                </p>
+            </div>
+        </div>
+    <?php else: ?>
         <?php if (mysqli_num_rows($result) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <div class="product" data-id="<?= $row['id_obat']; ?>">
-                    <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png" alt="Obat">
-                    <h4><?php echo htmlspecialchars($row['nama_obat']); ?></h4>
-                    <div class="price">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></div>
-                    <button class="btn-tambah">Tambah</button> </div>
+                <div class="product bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition" data-id="<?= $row['id_obat']; ?>">
+                    <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png" alt="Obat" class="w-16 h-16 mx-auto mb-3">
+                    <h4 class="font-semibold text-gray-800"><?php echo htmlspecialchars($row['nama_obat']); ?></h4>
+                    <div class="price text-green-600 font-bold">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></div>
+                    <button class="btn-tambah mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Tambah</button>
+                </div>
             <?php endwhile; ?>
         <?php else: ?>
-            <p>Obat tidak ditemukan.</p>
+            <p class="text-gray-500">Obat tidak ditemukan.</p>
         <?php endif; ?>
-    </div>
+    <?php endif; ?>
 </div>
+
+
     <?php include '../asset/footer.php';?>
 <?php include '../asset/keranjang.php'; ?>
 </body>
 </html>
+
 <script>
     
 
@@ -168,6 +181,7 @@ $result = mysqli_query($db, $sql);
         }
     });
 </script>
+   
 
 <style>
   
@@ -396,6 +410,17 @@ $result = mysqli_query($db, $sql);
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
+            padding: 30px;
+        }
+
+        /* ADD THIS: Style untuk wrapper admin */
+        .products > div[class*="flex"] {
+            grid-column: 1 / -1;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            min-height: auto !important;
+            padding: 60px 30px;
         }
 
         .product {
@@ -491,3 +516,4 @@ $result = mysqli_query($db, $sql);
 
         
     </style>
+

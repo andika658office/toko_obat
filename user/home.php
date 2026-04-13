@@ -20,7 +20,6 @@
 
     <ul class="menu">
         <li><a href="#home">Beranda</a></li>
-        <li><a href="#produk">Produk</a></li>
         <li><a href="#tentang">Tentang Kami</a></li>
         <li><a href="#kontak">Kontak</a></li>
     </ul>
@@ -36,18 +35,18 @@
     <span class="pr-5 font-bold text-sm opacity-0 transform -translate-x-5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 whitespace-nowrap">
         Kembali ke Login
     </span>
-</a>v
+</a>
 </nav>
 
 <section class="hero" id='home'>
     <div class="hero-content">
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-emerald-50 mb-8">
             <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">toko obat Terpercaya</span>
+            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Harga Terjangkau</span>
         </div>
         <h1 >Kesehatan Anda<br>
         <span>Prioritas Kami</span></h1>
-        <p class="text-slate-500 text-lg mb-10 max-w-md leading-relaxed">Dapatkan obat-obatan berkualitas dengan harga terjangkau. Pesan mudah, pengiriman cepat ke seluruh Indonesia.</p>
+        <p class="text-slate-500 text-lg mb-10 max-w-md leading-relaxed">Dapatkan obat-obatan berkualitas dengan harga terjangkau</p>
         
     </div>
 
@@ -80,14 +79,13 @@
 
         <div class="absolute top-10 -left-16 p-3 bg-white rounded-full shadow-lg flex items-center gap-3 border border-slate-50 px-5">
             <div class="relative">
-                <div class="w-10 h-10 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-sm animate-bounce duration-[3000ms]">
-                    <i class="fas fa-truck-fast"></i>
+                <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm animate-bounce duration-[3000ms]">
+                    <i class="fas fa-tag"></i>
                 </div>
-                <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></span>
             </div>
             <div>
-                <div class="text-[10px] font-extrabold text-slate-800 leading-tight">Kurir Meluncur</div>
-                <div class="text-[9px] text-slate-400 font-medium">Estimasi 15 Menit</div>
+                <div class="text-[10px] font-extrabold text-slate-800 leading-tight">Harga Terjangkau</div>
+                <div class="text-[9px] text-slate-400 font-medium">Promo Spesial</div>
             </div>
         </div>
 
@@ -100,51 +98,6 @@
             <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
         </div>
 
-    </div>
-</div>
-</section>
-
-<section class="py-20 px-[8%] bg-slate-50/50" id='produk'>
-    <div class="text-center mb-12">
-        <h2 class="text-4xl font-extrabold mt-4 text-slate-800">Produk <span class="text-emerald-500">Unggulan</span> Kami</h2>
-        <p class="text-slate-500 mt-3 max-w-2xl mx-auto">Temukan berbagai obat dan produk kesehatan berkualitas tinggi </p>
-    </div>
-
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        
-        <div class="group bg-white rounded-[32px] p-5 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-500 relative overflow-hidden">
-            <div class="absolute top-4 left-4 z-10">
-                <span class="px-3 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded-lg uppercase">Terlaris</span>
-            </div>
-            
-            <div class="aspect-square bg-slate-50 rounded-2xl mb-5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <i class="fas fa-pills text-6xl text-emerald-400 opacity-80"></i>
-            </div>
-
-            <div class="space-y-1 mb-4">
-                <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Obat Demam</span>
-                <h3 class="font-bold text-slate-800 text-lg group-hover:text-emerald-600 transition-colors">Paracetamol 500mg</h3>
-                <div class="flex items-center gap-2">
-                    <div class="flex text-amber-400 text-xs">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-between mt-auto">
-                <div>
-                    <span class="block text-xl font-extrabold text-slate-900">Rp 15.000</span>
-                    
-                </div>
-            </div>
-        
-
-        </div>
     </div>
 </div>
 </section>
@@ -313,110 +266,9 @@ window.onclick = function(e) {
 </html>
 
 <style>
-
-        html{scroll-behavior: smooth;}
-        :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --soft-green: #eefdf5;
-            --dark: #1e293b;
-            --text-light: #64748b;
+        html {
+            scroll-behavior: smooth;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: var(--dark);
-        }
-
-        /* NAVBAR - Enhanced with Search Bar */
-        nav {
-            padding: 0.8rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
-        }
-
-        .search-container {
-            position: relative;
-            width: 350px;
-            margin-left: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px 15px 10px 45px;
-            border-radius: 14px;
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-        }
-
-        /* LOGO & MENU */
-        .logo-container { display: flex; align-items: center; gap: 10px; }
-        .logo-icon {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white; width: 38px; height: 38px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 12px; font-size: 1.2rem;
-        }
-
-        .menu { display: flex; list-style: none; gap: 2rem; }
-        .menu a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; opacity: 0.8; transition: 0.3s; }
-        .menu a:hover { color: var(--primary); opacity: 1; }
-
-        /* DROPDOWN */
-        .profile-trigger {
-            display: flex; align-items: center; gap: 10px;
-            background: white; padding: 6px 14px; border-radius: 50px;
-            border: 1px solid #f1f5f9; cursor: pointer; transition: 0.3s;
-        }
-        .profile.active .dropdown { display: block; }
-        .dropdown {
-            position: absolute; top: calc(100% + 15px); right: 0;
-            background: white; min-width: 200px; border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none;
-            overflow: hidden; border: 1px solid #f1f5f9; animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* HERO Gradient */
-        .hero { 
-            padding-top: 100px; 
-            background: radial-gradient(circle at 10% 10%, #eefdf5 0%, #ffffff 40%);
-        }
-
 
         :root {
             --primary: #10b981;
@@ -438,13 +290,13 @@ window.onclick = function(e) {
             color: var(--dark);
         }
 
-        /* NAVBAR - Enhanced with Glassmorphism */
+        /* NAVBAR - Glassmorphism */
         nav {
             padding: 1rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             position: fixed;
@@ -474,8 +326,12 @@ window.onclick = function(e) {
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
 
-        .logo-text b { display: block; font-size: 1.1rem; color: var(--dark); letter-spacing: -0.5px; }
-        .logo-text span { font-size: 0.75rem; color: var(--text-light); }
+        .logo-text b {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--dark);
+            letter-spacing: -0.5px;
+        }
 
         .menu {
             display: flex;
@@ -492,10 +348,17 @@ window.onclick = function(e) {
             opacity: 0.8;
         }
 
-        .menu a:hover { color: var(--primary); opacity: 1; }
+        .menu a:hover {
+            color: var(--primary);
+            opacity: 1;
+        }
 
-        /* PROFILE DROPDOWN STYLING */
-        .profile { position: relative; cursor: pointer; }
+        /* DROPDOWN */
+        .profile {
+            position: relative;
+            cursor: pointer;
+        }
+
         .profile-trigger {
             display: flex;
             align-items: center;
@@ -507,7 +370,10 @@ window.onclick = function(e) {
             box-shadow: 0 2px 6px rgba(0,0,0,0.02);
             transition: 0.3s;
         }
-        .profile-trigger:hover { border-color: var(--primary); }
+
+        .profile-trigger:hover {
+            border-color: var(--primary);
+        }
 
         .dropdown {
             position: absolute;
@@ -522,14 +388,22 @@ window.onclick = function(e) {
             border: 1px solid #f1f5f9;
             animation: slideUp 0.3s ease;
         }
-        
+
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .profile.active .dropdown { display: block; }
-        
+        .profile.active .dropdown {
+            display: block;
+        }
+
         .dropdown a {
             display: flex;
             align-items: center;
@@ -540,7 +414,38 @@ window.onclick = function(e) {
             font-size: 0.85rem;
             font-weight: 500;
         }
-        .dropdown a:hover { background: var(--soft-green); color: var(--primary); }
+
+        .dropdown a:hover {
+            background: var(--soft-green);
+            color: var(--primary);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding-top: 120px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-inline: 8%;
+            background: radial-gradient(circle at 80% 20%, #eefdf5 0%, #ffffff 50%);
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+        }
 
         /* BUTTONS */
         .btn-keranjang {
@@ -557,7 +462,11 @@ window.onclick = function(e) {
             transition: 0.3s;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
-        .btn-keranjang:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        .btn-keranjang:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
 
         .btn-login {
             background: #f8fafc;
@@ -570,12 +479,8 @@ window.onclick = function(e) {
             border: 1px solid #e2e8f0;
             transition: 0.3s;
         }
-        .btn-login:hover { background: #f1f5f9; }
 
-        /* HERO & CATALOG (Keeping your existing styles but cleaning up) */
-        .hero { padding-top: 120px; min-height: 90vh; display: flex; align-items: center; padding-inline: 8%; background: radial-gradient(circle at 80% 20%, #eefdf5 0%, #ffffff 50%); }
-        .hero-content h1 { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
-        .hero-content h1 span { color: var(--primary); }
-
-   
+        .btn-login:hover {
+            background: #f1f5f9;
+        }
     </style>
